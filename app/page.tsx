@@ -1,65 +1,171 @@
-import Image from "next/image";
+ "use client";
+import { Layers, ArrowRight, Briefcase, BarChart3, Layers as StackIcon, Check, Mail, Phone, Globe } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      {/* Header */}
+      <header className="sticky top-0 z-50 border-b bg-white/70 backdrop-blur">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            <a href="#" className="flex items-center gap-2">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-900 text-white">
+                <Layers size={18} />
+              </div>
+              <div className="leading-tight">
+                <p className="text-lg font-bold tracking-tight">Fincity</p>
+                <p className="-mt-1 text-[10px] uppercase tracking-widest text-gray-500">Yönetim & Finans</p>
+              </div>
+            </a>
+
             <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-black"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              Teklif Al <ArrowRight size={16} />
+            </a>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+      </header>
+
+      {/* Hero / Intro */}
+      <main>
+        <section className="py-12">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <h1 className="text-3xl font-bold">Hoş geldin Fincity!</h1>
+            <p className="mt-2 max-w-2xl text-gray-600">
+              Bu, sitenin çalışan temel iskeleti. Aşağıda Hizmetler ve İletişim bölümleri hazır.
+            </p>
+          </div>
+        </section>
+
+        {/* Services */}
+        <section id="services" className="py-16 sm:py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Uzmanlık Alanlarımız</h2>
+              <p className="mt-3 text-base text-gray-600 sm:text-lg">İhtiyacınıza göre modüler servis paketleri.</p>
+            </div>
+
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {/* Yönetim Danışmanlığı */}
+              <div className="rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900 text-white">
+                  <Briefcase size={18} />
+                </div>
+                <h3 className="text-lg font-semibold">Yönetim Danışmanlığı</h3>
+                <p className="mt-2 text-sm text-gray-600">Stratejiden uygulamaya, ölçülebilir çıktılarla ilerleriz.</p>
+                <ul className="mt-4 space-y-2 text-sm text-gray-700">
+                  {["Operasyon & süreç tasarımı", "OKR/KPI kurulumu", "Değişim yönetimi"].map((b) => (
+                    <li key={b} className="flex items-start gap-2">
+                      <Check className="mt-0.5" size={16} /> <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Finansal Hizmetler */}
+              <div className="rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900 text-white">
+                  <BarChart3 size={18} />
+                </div>
+                <h3 className="text-lg font-semibold">Finansal Hizmetler</h3>
+                <p className="mt-2 text-sm text-gray-600">FP&A, mali analiz ve yatırım danışmanlığı.</p>
+                <ul className="mt-4 space-y-2 text-sm text-gray-700">
+                  {["Bütçe & forecasting", "Nakit akış optimizasyonu", "Kârlılık analizi"].map((b) => (
+                    <li key={b} className="flex items-start gap-2">
+                      <Check className="mt-0.5" size={16} /> <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Muhasebe & Vergi */}
+              <div className="rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900 text-white">
+                  <StackIcon size={18} />
+                </div>
+                <h3 className="text-lg font-semibold">Muhasebe & Vergi</h3>
+                <p className="mt-2 text-sm text-gray-600">Uçtan uca muhasebe ve mevzuat uyumu.</p>
+                <ul className="mt-4 space-y-2 text-sm text-gray-700">
+                  {["e-Fatura/e-Defter", "Vergi planlaması", "Denetim desteği"].map((b) => (
+                    <li key={b} className="flex items-start gap-2">
+                      <Check className="mt-0.5" size={16} /> <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section id="contact" className="py-16 sm:py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">İletişim</h2>
+              <p className="mt-3 text-base text-gray-600 sm:text-lg">
+                Talebinizi gönderin; kısa sürede dönüş yapalım.
+              </p>
+            </div>
+
+            <div className="mx-auto mt-10 max-w-2xl">
+              <form
+                action="https://formspree.io/f/mvgwjzro"
+  // <-- Formspree endpoint’inle değiştir
+                method="POST"
+                className="rounded-2xl border bg-white p-6 shadow-sm"
+              >
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">Ad Soyad</label>
+                    <input name="name" required className="mt-1 w-full rounded-xl border px-3 py-2" placeholder="Yasin Yılmaz" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">Email</label>
+                    <input name="email" type="email" required className="mt-1 w-full rounded-xl border px-3 py-2" placeholder="info@fincity.com.tr" />
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label className="text-sm font-medium text-gray-700">Mesajınız</label>
+                    <textarea name="message" required rows={5} className="mt-1 w-full rounded-xl border px-3 py-2" placeholder="İhtiyacınızı ve hedefinizi kısaca anlatın…" />
+                  </div>
+                </div>
+
+                <div className="mt-4 flex items-center justify-between">
+                  <div className="flex items-center gap-3 text-sm text-gray-600">
+                    <Mail size={16} /> contact@fincity.com.tr
+                    <Phone size={16} /> +90 (___) ___ __ __
+                    <Globe size={16} /> fincity.com.tr
+                  </div>
+                  <button
+                    className="inline-flex items-center gap-2 rounded-full bg-gray-900 px-5 py-3 text-sm font-semibold text-white hover:bg-black"
+                    type="submit"
+                  >
+                    Gönder <ArrowRight size={16} />
+                  </button>
+                </div>
+              </form>
+
+              <p className="mt-4 text-xs text-gray-500">
+                Not: Formspree hesabında oluşturduğun formun endpoint’ini buraya yazmalısın.
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
+
+      {/* Footer */}
+      <footer className="border-t bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center justify-between gap-3 py-6 text-sm text-gray-600 md:flex-row">
+            <p>© {new Date().getFullYear()} Fincity. Tüm hakları saklıdır.</p>
+            <div className="flex items-center gap-4">
+              <a href="#services" className="hover:text-gray-900">Hizmetler</a>
+              <a href="#contact" className="hover:text-gray-900">İletişim</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
