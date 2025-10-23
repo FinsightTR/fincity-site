@@ -62,21 +62,21 @@ export default function DigitalServicesPage() {
             </div>
           </div>
 
-          {/* Görsel — width/height + unoptimized (en hızlı çözüm) */}
-          {/* Görsel — fill + min-h (optimizer açık) */}
-<div className="relative w-full overflow-hidden rounded-2xl shadow-sm bg-white">
-  <div className="relative w-full min-h-[280px] sm:min-h-[360px] lg:min-h-[420px]">
-    <Image
-      src="/dijital.jpg"                 // public/dijital.jpg
-      alt="Dijital dönüşüm görseli"
-      fill
-      className="object-cover"           // Kesilmesin dersen object-contain yapabilirsin
-      priority
-      sizes="(min-width:1024px) 560px, 100vw"
-    />
-  </div>
-</div>
-</section>
+          {/* Görsel — fill + min-h (optimizer aktif) */}
+          <div className="relative w-full overflow-hidden rounded-2xl shadow-sm bg-white">
+            <div className="relative w-full min-h-[280px] sm:min-h-[360px] lg:min-h-[420px]">
+              <Image
+                src="/dijital.jpg" // public/dijital.jpg
+                alt="Dijital dönüşüm görseli"
+                fill
+                className="object-cover"
+                priority
+                sizes="(min-width:1024px) 560px, 100vw"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Kapsam Grid */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
