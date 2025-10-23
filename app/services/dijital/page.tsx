@@ -62,7 +62,7 @@ export default function DigitalServicesPage() {
             </div>
           </div>
 
-          {/* Görsel — fill + min-h (optimizer aktif) */}
+          {/* Görsel */}
           <div className="relative w-full overflow-hidden rounded-2xl shadow-sm bg-white">
             <div className="relative w-full min-h-[280px] sm:min-h-[360px] lg:min-h-[420px]">
               <Image
@@ -96,7 +96,7 @@ export default function DigitalServicesPage() {
         </div>
       </section>
 
-      {/* CTA / Alt Bilgi */}
+      {/* CTA */}
       <section className="border-t">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
           <div className="rounded-2xl bg-gray-50 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
