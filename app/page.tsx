@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Briefcase, BarChart3, Layers as StackIcon, Check, Layers } from "lucide-react";
-import Link from "next/link";
+
 
 
 /** GÜNDEM KARTLARI — JSX DIŞINDA TANIMLI */
