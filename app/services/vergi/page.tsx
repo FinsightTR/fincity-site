@@ -47,12 +47,8 @@ export default function TaxServicePage() {
           </div>
 
           {/* Sağ taraf: resim */}
-          <div className="relative w-full h-[400px]">
-            <Image
-              src="/vergi.jpg"
-              alt="Fincity Vergi Danışmanlığı Ekibi"
-              fill
-              className="object-cover rounded-xl shadow-md"
+          <Image src="/vergi.jpg" alt="Fincity Vergi Danışmanlığı Ekibi" fill className="object-cover rounded-xl shadow-md" />
+
             />
           </div>
         </div>
@@ -61,18 +57,33 @@ export default function TaxServicePage() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mt-14">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">
             Vergi Danışmanlığı Hizmetlerimiz
-          </h2>
+        <h2 className="text-2xl font-bold text-center mt-16 mb-10">
+  Vergi Danışmanlığı Hizmetlerimiz
+</h2>
 
-          <ul className="list-disc pl-6 space-y-2 text-gray-700 text-lg">
-            <li>Şirket Birleşme ve Satın Alımları Vergi Hizmetleri</li>
-            <li>Transfer Fiyatlandırması Hizmetleri</li>
-            <li>Ar-Ge Hizmetleri</li>
-            <li>Dolaylı Vergi Hizmetleri</li>
-            <li>Tam Tasdik Hizmetleri</li>
-            <li>KDV İade Hizmetleri</li>
-            <li>Vergi Teknolojileri Hizmetleri</li>
-            <li>Muhasebe ve Mali Danışmanlık Hizmetleri</li>
-            <li>Uluslararası Vergi Hizmetleri</li>
+<div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+  {/* Sol sütun */}
+  <ul className="space-y-2 text-gray-700">
+    <li>Şirket Birleşme ve Satın Alımları Vergi Hizmetleri</li>
+    <li>Transfer Fiyatlandırması Hizmetleri</li>
+    <li>Ar-Ge Hizmetleri</li>
+  </ul>
+
+  {/* Orta sütun */}
+  <ul className="space-y-2 text-gray-700">
+    <li>Dolaylı Vergi Hizmetleri</li>
+    <li>Tam Tasdik Hizmetleri</li>
+    <li>KDV İade Hizmetleri</li>
+  </ul>
+
+  {/* Sağ sütun */}
+  <ul className="space-y-2 text-gray-700">
+    <li>Vergi Teknolojileri Hizmetleri</li>
+    <li>Muhasebe ve Mali Danışmanlık Hizmetleri</li>
+    <li>Uluslararası Vergi Hizmetleri</li>
+  </ul>
+</div>
+
           </ul>
         </div>
       </section>
