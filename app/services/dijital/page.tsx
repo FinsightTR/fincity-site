@@ -1,4 +1,4 @@
-// app/services/dijital/page.tsx
+ // app/services/dijital/page.tsx
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
@@ -62,18 +62,17 @@ export default function DigitalServicesPage() {
             </div>
           </div>
 
-          {/* Görsel */}
-          <div className="relative w-full overflow-hidden rounded-2xl shadow-sm bg-white">
-            <div className="relative aspect-[16/9] w-full">
-              <Image
-                src="/dijital.jpg" // public/dijital.jpg
-                alt="Dijital dönüşüm görseli"
-                fill
-                className="object-cover"
-                priority
-                sizes="(min-width:1024px) 560px, 100vw"
-              />
-            </div>
+          {/* Görsel — width/height + unoptimized (en hızlı çözüm) */}
+          <div className="w-full">
+            <Image
+              src="/dijital.jpg"               // public/dijital.jpg
+              alt="Dijital dönüşüm görseli"
+              width={1200}                      // 16:9 oranı
+              height={675}
+              className="rounded-2xl shadow-sm w-full h-auto object-cover"
+              priority
+              unoptimized                       // Vercel optimizer kaynaklı boş görünmeyi çözer
+            />
           </div>
         </div>
       </section>
@@ -83,7 +82,6 @@ export default function DigitalServicesPage() {
         <h2 className="text-center text-2xl sm:text-3xl font-semibold text-gray-900">
           Dijital Hizmetler Kapsamımız
         </h2>
-
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {FEATURES.map((item) => (
             <div
