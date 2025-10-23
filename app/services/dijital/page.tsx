@@ -16,9 +16,13 @@ export default function DigitalServicesPage() {
       <div className="border-b bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 text-sm">
           <nav className="text-gray-600">
-            <Link href="/" className="hover:text-gray-900">Ana Sayfa</Link>
+            <Link href="/" className="hover:text-gray-900">
+              Ana Sayfa
+            </Link>
             <span className="mx-2">/</span>
-            <Link href="/services" className="hover:text-gray-900">Hizmetlerimiz</Link>
+            <Link href="/services" className="hover:text-gray-900">
+              Hizmetlerimiz
+            </Link>
             <span className="mx-2">/</span>
             <span className="text-gray-900 font-medium">Dijital Hizmetler</span>
           </nav>
@@ -28,13 +32,13 @@ export default function DigitalServicesPage() {
       {/* Hero + Intro */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          {/* Metin */}
+          {/* Metin Alanı */}
           <div className="space-y-6">
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
               Dijital Hizmetler
             </h1>
             <p className="text-gray-700 leading-7">
-              Fincity olarak dijital dönüşümü, sadece teknoloji kurulumundan ibaret
+              Fincity olarak dijital dönüşümü sadece teknoloji kurulumundan ibaret
               görmüyoruz. İş hedeflerinize bağlanan, ölçülebilir çıktılar üreten ve
               ekibiniz tarafından sürdürülebilir şekilde kullanılan çözümler kuruyoruz.
               Düşük maliyetli ama etkili otomasyonlardan, uçtan uca veri görünürlüğüne
@@ -62,11 +66,11 @@ export default function DigitalServicesPage() {
             </div>
           </div>
 
-          {/* Görsel */}
+          {/* Görsel Alanı */}
           <div className="relative w-full overflow-hidden rounded-2xl shadow-sm bg-white">
             <div className="relative w-full min-h-[280px] sm:min-h-[360px] lg:min-h-[420px]">
               <Image
-                src="/dijital.jpg" // public/dijital.jpg
+                src="/dijital.jpg" // public/dijital.jpg (PNG veri içerir)
                 alt="Dijital dönüşüm görseli"
                 fill
                 className="object-cover"
@@ -78,7 +82,7 @@ export default function DigitalServicesPage() {
         </div>
       </section>
 
-      {/* Kapsam Grid */}
+      {/* Hizmet Kapsamı */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
         <h2 className="text-center text-2xl sm:text-3xl font-semibold text-gray-900">
           Dijital Hizmetler Kapsamımız
@@ -96,7 +100,7 @@ export default function DigitalServicesPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA Alanı */}
       <section className="border-t">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
           <div className="rounded-2xl bg-gray-50 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -121,6 +125,7 @@ export default function DigitalServicesPage() {
   );
 }
 
+// Dijital Hizmetler Kart Listesi
 const FEATURES = [
   {
     title: "RPA / Low-code Süreç Otomasyonu",
