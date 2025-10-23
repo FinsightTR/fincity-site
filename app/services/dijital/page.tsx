@@ -63,16 +63,20 @@ export default function DigitalServicesPage() {
           </div>
 
           {/* Görsel — width/height + unoptimized (en hızlı çözüm) */}
-          <div className="w-full">
-            <Image
-              src="/dijital.jpg"               // public/dijital.jpg
-              alt="Dijital dönüşüm görseli"
-              width={1200}                      // 16:9 oranı
-              height={675}
-              className="rounded-2xl shadow-sm w-full h-auto object-cover"
-              priority
-              unoptimized                       // Vercel optimizer kaynaklı boş görünmeyi çözer
-            />
+          {/* Görsel — fill + min-h (optimizer açık) */}
+<div className="relative w-full overflow-hidden rounded-2xl shadow-sm bg-white">
+  <div className="relative w-full min-h-[280px] sm:min-h-[360px] lg:min-h-[420px]">
+    <Image
+      src="/dijital.jpg"                 // public/dijital.jpg
+      alt="Dijital dönüşüm görseli"
+      fill
+      className="object-cover"           // Kesilmesin dersen object-contain yapabilirsin
+      priority
+      sizes="(min-width:1024px) 560px, 100vw"
+    />
+  </div>
+</div>
+
           </div>
         </div>
       </section>
