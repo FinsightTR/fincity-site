@@ -11,32 +11,12 @@ const SERVICES = [
   {
     slug: "dijital",
     title: "Dijital Hizmetler",
-    desc: "Süreç otomasyonu (RPA), veri analitiği ve ERP/CRM entegrasyonlarıyla iş süreçlerinizi hızlandırıyoruz.",
+    desc: "RPA/low-code, ERP/CRM entegrasyonları, veri ambarı ve dashboard çözümleri.",
   },
   {
     slug: "vergi",
     title: "Vergi Danışmanlığı",
-    desc: "Vergi planlaması, e-Fatura/e-Defter ve mevzuat uyum süreçlerinde uçtan uca çözümler sunuyoruz.",
-  },
-  {
-    slug: "finansal",
-    title: "Finansal Raporlama ve Muhasebe",
-    desc: "Finansal raporlama, muhasebe ve FP&A süreçlerinde uzman desteği.",
-  },
-  {
-    slug: "risk",
-    title: "Risk, Süreç ve Teknoloji",
-    desc: "İç kontrol, süreç analizi ve teknoloji temelli optimizasyon çözümleri.",
-  },
-  {
-    slug: "birlesme",
-    title: "Şirket Birleşme ve Satın Alma",
-    desc: "Değerleme, due diligence ve birleşme sonrası entegrasyon danışmanlığı.",
-  },
-  {
-    slug: "insan-yonetimi",
-    title: "İnsan Yönetimi ve Organizasyon",
-    desc: "Performans, OKR/KPI sistemleri ve organizasyonel dönüşüm danışmanlığı.",
+    desc: "Vergi uyumu, beyannameler, stratejik vergi planlaması ve inceleme danışmanlığı.",
   },
 ];
 
@@ -48,12 +28,16 @@ export default function ServicesIndexPage() {
           Hizmetlerimiz
         </h1>
 
+        <p className="text-center text-gray-700 max-w-2xl mx-auto mb-12">
+          Fincity olarak farklı ihtiyaçlara özel danışmanlık çözümleri sunuyoruz. Aşağıdan detaylara ulaşabilirsiniz.
+        </p>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {SERVICES.map((s) => (
             <Link
               key={s.slug}
               href={`/services/${s.slug}`}
-              className="block rounded-2xl border border-gray-200 p-6 bg-white hover:shadow-md transition-all duration-200"
+              className="block rounded-2xl border border-gray-200 p-6 bg-white hover:shadow-md transition-all"
             >
               <h2 className="text-lg font-semibold text-gray-900 mb-2">{s.title}</h2>
               <p className="text-sm text-gray-600">{s.desc}</p>
@@ -67,5 +51,4 @@ export default function ServicesIndexPage() {
     </main>
   );
 }
-
 
