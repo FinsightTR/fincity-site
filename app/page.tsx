@@ -86,14 +86,19 @@ export default function Home() {
       </header>
 
       {/* HERO */}
-      <section className="py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold">Hoş geldin Fincity!</h1>
-          <p className="mt-2 max-w-2xl text-gray-600">
-            Bu, sitenin çalışan temel iskeleti. Aşağıda Hakkımızda, Hizmetler ve Gündem bölümleri hazır.
-          </p>
-        </div>
-      </section>
+    <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+    <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+      Uzmanlık ve teknolojiyi bir araya getiriyoruz
+    </h1>
+    <p className="mt-4 text-lg text-gray-700 sm:text-xl">
+      Böylece siz <span className="font-semibold text-gray-900">daha akıllı</span>,{" "}
+      <span className="font-semibold text-gray-900">daha hızlı</span> ve{" "}
+      <span className="font-semibold text-gray-900">daha başarılı</span> olabilirsiniz.
+    </p>
+  </div>
+</section>
+
 
       {/* HAKKIMIZDA */}
       <section id="about" className="scroll-mt-24 py-16 sm:py-24">
