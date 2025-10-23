@@ -121,65 +121,81 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HİZMETLER */}
-      <section id="services" className="scroll-mt-24 py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Uzmanlık Alanlarımız</h2>
-            <p className="mt-3 text-base text-gray-600 sm:text-lg">İhtiyacınıza göre modüler servis paketleri.</p>
+     {/* HİZMETLER */}
+<section id="services" className="scroll-mt-24 py-16 sm:py-24">
+  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-3xl text-center">
+      <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        Hizmetlerimiz
+      </h2>
+      <p className="mt-3 text-base text-gray-600 sm:text-lg">
+        Uzmanlık ve teknolojiyi bir araya getiriyoruz.
+      </p>
+    </div>
+
+    <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {[
+        {
+          title: "Dijital Hizmetler",
+          desc: "Süreç otomasyonu, veri analitiği ve dijital dönüşüm çözümleri.",
+          icon: <BarChart3 size={18} />,
+        },
+        {
+          title: "Vergi Danışmanlığı",
+          desc: "Vergi planlaması, e-Fatura, e-Defter ve mevzuat uyum süreçleri.",
+          icon: <StackIcon size={18} />,
+        },
+        {
+          title: "İnsan Yönetimi ve Organizasyon Danışmanlığı",
+          desc: "Performans sistemleri, OKR/KPI kurulumu ve organizasyonel dönüşüm.",
+          icon: <Briefcase size={18} />,
+        },
+        {
+          title: "Risk, Süreç ve Teknoloji",
+          desc: "İç kontrol, siber güvenlik, süreç optimizasyonu ve risk yönetimi.",
+          icon: <Check size={18} />,
+        },
+        {
+          title: "Şirket Birleşme ve Satın Alma",
+          desc: "Değerleme, finansal due diligence ve birleşme sonrası entegrasyon.",
+          icon: <Layers size={18} />,
+        },
+        {
+          title: "Suistimal, Uyum ve Kriz Yönetimi",
+          desc: "Etik, iç denetim, uyum süreçleri ve kriz yönetim danışmanlığı.",
+          icon: <Check size={18} />,
+        },
+        {
+          title: "Strateji ve Yönetim Danışmanlığı",
+          desc: "Kurumsal strateji, büyüme planı ve operasyonel verimlilik.",
+          icon: <Briefcase size={18} />,
+        },
+        {
+          title: "Finansal Raporlama ve Muhasebe Danışmanlığı",
+          desc: "Finansal raporlama, mali analiz ve IFRS uyum danışmanlığı.",
+          icon: <BarChart3 size={18} />,
+        },
+        {
+          title: "Aile Şirketi Hizmetleri",
+          desc: "Nesiller arası geçiş planlaması ve yönetişim yapısının kurulması.",
+          icon: <Layers size={18} />,
+        },
+      ].map((item) => (
+        <div
+          key={item.title}
+          className="rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md"
+        >
+          <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900 text-white">
+            {item.icon}
           </div>
-
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Yönetim Danışmanlığı */}
-            <div className="rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900 text-white">
-                <Briefcase size={18} />
-              </div>
-              <h3 className="text-lg font-semibold">Yönetim Danışmanlığı</h3>
-              <p className="mt-2 text-sm text-gray-600">Stratejiden uygulamaya, ölçülebilir çıktılarla ilerleriz.</p>
-              <ul className="mt-4 space-y-2 text-sm text-gray-700">
-                {["Operasyon & süreç tasarımı", "OKR/KPI kurulumu", "Değişim yönetimi"].map((b) => (
-                  <li key={b} className="flex items-start gap-2">
-                    <Check className="mt-0.5" size={16} /> <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Finansal Hizmetler */}
-            <div className="rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900 text-white">
-                <BarChart3 size={18} />
-              </div>
-              <h3 className="text-lg font-semibold">Finansal Hizmetler</h3>
-              <p className="mt-2 text-sm text-gray-600">FP&A, mali analiz ve yatırım danışmanlığı.</p>
-              <ul className="mt-4 space-y-2 text-sm text-gray-700">
-                {["Bütçe & forecasting", "Nakit akış optimizasyonu", "Kârlılık analizi"].map((b) => (
-                  <li key={b} className="flex items-start gap-2">
-                    <Check className="mt-0.5" size={16} /> <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Muhasebe & Vergi */}
-            <div className="rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900 text-white">
-                <StackIcon size={18} />
-              </div>
-              <h3 className="text-lg font-semibold">Muhasebe & Vergi</h3>
-              <p className="mt-2 text-sm text-gray-600">Uçtan uca muhasebe ve mevzuat uyumu.</p>
-              <ul className="mt-4 space-y-2 text-sm text-gray-700">
-                {["e-Fatura/e-Defter", "Vergi planlaması", "Denetim desteği"].map((b) => (
-                  <li key={b} className="flex items-start gap-2">
-                    <Check className="mt-0.5" size={16} /> <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          <h3 className="text-lg font-semibold">{item.title}</h3>
+          <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* GÜNDEM */}
       <section id="news" className="scroll-mt-24 py-16 sm:py-24">
