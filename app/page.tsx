@@ -1,5 +1,6 @@
- "use client";
+"use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { ArrowRight, Briefcase, BarChart3, Layers as StackIcon, Check, Layers } from "lucide-react";
 
 /** GÜNDEM KARTLARI — JSX DIŞINDA TANIMLI */
@@ -125,64 +126,25 @@ export default function Home() {
 <section id="services" className="scroll-mt-24 py-16 sm:py-24">
   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div className="mx-auto max-w-3xl text-center">
-      <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-        Hizmetlerimiz
-      </h2>
-      <p className="mt-3 text-base text-gray-600 sm:text-lg">
-        Uzmanlık ve teknolojiyi bir araya getiriyoruz.
-      </p>
+      <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Hizmetlerimiz</h2>
+      <p className="mt-3 text-base text-gray-600 sm:text-lg">Uzmanlık ve teknolojiyi bir araya getiriyoruz.</p>
     </div>
 
     <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {[
-        {
-          title: "Dijital Hizmetler",
-          desc: "Süreç otomasyonu, veri analitiği ve dijital dönüşüm çözümleri.",
-          icon: <BarChart3 size={18} />,
-        },
-        {
-          title: "Vergi Danışmanlığı",
-          desc: "Vergi planlaması, e-Fatura, e-Defter ve mevzuat uyum süreçleri.",
-          icon: <StackIcon size={18} />,
-        },
-        {
-          title: "İnsan Yönetimi ve Organizasyon Danışmanlığı",
-          desc: "Performans sistemleri, OKR/KPI kurulumu ve organizasyonel dönüşüm.",
-          icon: <Briefcase size={18} />,
-        },
-        {
-          title: "Risk, Süreç ve Teknoloji",
-          desc: "İç kontrol, siber güvenlik, süreç optimizasyonu ve risk yönetimi.",
-          icon: <Check size={18} />,
-        },
-        {
-          title: "Şirket Birleşme ve Satın Alma",
-          desc: "Değerleme, finansal due diligence ve birleşme sonrası entegrasyon.",
-          icon: <Layers size={18} />,
-        },
-        {
-          title: "Suistimal, Uyum ve Kriz Yönetimi",
-          desc: "Etik, iç denetim, uyum süreçleri ve kriz yönetim danışmanlığı.",
-          icon: <Check size={18} />,
-        },
-        {
-          title: "Strateji ve Yönetim Danışmanlığı",
-          desc: "Kurumsal strateji, büyüme planı ve operasyonel verimlilik.",
-          icon: <Briefcase size={18} />,
-        },
-        {
-          title: "Finansal Raporlama ve Muhasebe Danışmanlığı",
-          desc: "Finansal raporlama, mali analiz ve IFRS uyum danışmanlığı.",
-          icon: <BarChart3 size={18} />,
-        },
-        {
-          title: "Aile Şirketi Hizmetleri",
-          desc: "Nesiller arası geçiş planlaması ve yönetişim yapısının kurulması.",
-          icon: <Layers size={18} />,
-        },
+        { slug: "dijital", title: "Dijital Hizmetler", desc: "Süreç otomasyonu, veri analitiği ve dijital dönüşüm.", icon: <BarChart3 size={18} /> },
+        { slug: "vergi", title: "Vergi Danışmanlığı", desc: "Vergi planlaması, e-Fatura/e-Defter ve mevzuat uyumu.", icon: <StackIcon size={18} /> },
+        { slug: "insan-yonetimi", title: "İnsan Yönetimi ve Organizasyon", desc: "Performans sistemleri, OKR/KPI ve organizasyonel dönüşüm.", icon: <Briefcase size={18} /> },
+        { slug: "risk-surec-teknoloji", title: "Risk, Süreç ve Teknoloji", desc: "İç kontrol, siber güvenlik ve süreç optimizasyonu.", icon: <Check size={18} /> },
+        { slug: "birlesme-satin-alma", title: "Şirket Birleşme ve Satın Alma", desc: "Değerleme, due diligence ve entegrasyon.", icon: <Layers size={18} /> },
+        { slug: "suistimal-uyum-kriz", title: "Suistimal, Uyum ve Kriz", desc: "Etik, uyum ve kriz yönetimi danışmanlığı.", icon: <Check size={18} /> },
+        { slug: "strateji-yonetim", title: "Strateji ve Yönetim", desc: "Kurumsal strateji, büyüme planı ve verimlilik.", icon: <Briefcase size={18} /> },
+        { slug: "finansal-raporlama-muhasebe", title: "Finansal Raporlama ve Muhasebe", desc: "IFRS, raporlama ve mali analiz.", icon: <BarChart3 size={18} /> },
+        { slug: "aile-sirketi", title: "Aile Şirketi Hizmetleri", desc: "Nesiller arası geçiş ve yönetişim.", icon: <Layers size={18} /> },
       ].map((item) => (
-        <div
-          key={item.title}
+        <Link
+          key={item.slug}
+          href={`/services/${item.slug}`}
           className="rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md"
         >
           <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900 text-white">
@@ -190,11 +152,13 @@ export default function Home() {
           </div>
           <h3 className="text-lg font-semibold">{item.title}</h3>
           <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
-        </div>
+          <p className="mt-4 text-sm font-medium text-gray-900">Detayları gör →</p>
+        </Link>
       ))}
     </div>
   </div>
 </section>
+
 
 
       {/* GÜNDEM */}
