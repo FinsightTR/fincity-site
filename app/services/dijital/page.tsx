@@ -1,4 +1,4 @@
- // app/services/dijital/page.tsx
+// app/services/dijital/page.tsx
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
@@ -49,28 +49,13 @@ export default function DigitalServicesPage() {
               yönetim dashboard’larıyla karar alma hızınızı artırır, operasyonel
               hataları azaltır ve süreçlerinizi ölçeklenebilir hale getiririz.
             </p>
-
-            <div className="flex flex-wrap gap-3 pt-2">
-              <Link
-                href="/contact"
-                className="inline-flex items-center rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50"
-              >
-                İletişime Geç
-              </Link>
-              <Link
-                href="/services"
-                className="inline-flex items-center rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
-              >
-                Tüm Hizmetler
-              </Link>
-            </div>
           </div>
 
           {/* Görsel Alanı */}
           <div className="relative w-full overflow-hidden rounded-2xl shadow-sm bg-white">
             <div className="relative w-full min-h-[280px] sm:min-h-[360px] lg:min-h-[420px]">
               <Image
-                src="/dijital.jpg" // public/dijital.jpg (PNG veri içerir)
+                src="/dijital.jpg"
                 alt="Dijital dönüşüm görseli"
                 fill
                 className="object-cover"
@@ -97,28 +82,6 @@ export default function DigitalServicesPage() {
               <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* CTA Alanı */}
-      <section className="border-t">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-          <div className="rounded-2xl bg-gray-50 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">
-                Bir haftada hızlı başlangıç yapmak ister misiniz?
-              </h3>
-              <p className="text-gray-600 mt-1">
-                Süreç keşfi → POC → Üretim planı. ROI odaklı ilerliyoruz.
-              </p>
-            </div>
-            <Link
-              href="/contact"
-              className="inline-flex items-center rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
-            >
-              Görüşme Planla
-            </Link>
-          </div>
         </div>
       </section>
     </main>
