@@ -76,10 +76,7 @@ export default function DigitalServicesPage() {
     />
   </div>
 </div>
-
-          </div>
-        </div>
-      </section>
+</section>
 
       {/* Kapsam Grid */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
