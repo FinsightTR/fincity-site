@@ -1,4 +1,4 @@
- import Link from "next/link";
+import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 
@@ -22,10 +22,10 @@ export default function TaxServicePage() {
         </div>
       </div>
 
-      {/* Ana içerik */}
+      {/* Üst bölüm: Metin + Görsel */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          {/* Sol taraf: metin */}
+          {/* Sol: metin */}
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
               Vergi Danışmanlığı
@@ -38,7 +38,7 @@ export default function TaxServicePage() {
               mevzuatın karmaşıklığını sadeleştirerek yönetilebilir hale getiriyoruz.
             </p>
 
-            <p className="text-gray-700 text-lg leading-relaxed mb-6">
+            <p className="text-gray-700 text-lg leading-relaxed">
               Teknoloji odaklı yaklaşımımız sayesinde süreçlerinizi dijitalleştiriyor, raporlama ve uyum süreçlerinde
               şeffaflığı artırıyor, böylece karar alma mekanizmalarınızın daha hızlı ve isabetli işlemesini sağlıyoruz.
               Fincity olarak, değişen vergi ortamına uyum sağlama konusunda işletmenizin stratejik çözüm ortağı olmayı,
@@ -46,45 +46,46 @@ export default function TaxServicePage() {
             </p>
           </div>
 
-          {/* Sağ taraf: resim */}
-          <Image src="/vergi.jpg" alt="Fincity Vergi Danışmanlığı Ekibi" fill className="object-cover rounded-xl shadow-md" />
-
+          {/* Sağ: görsel */}
+          <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-md">
+            <Image
+              src="/vergi.jpg"
+              alt="Fincity Vergi Danışmanlığı Ekibi"
+              fill
+              className="object-cover"
+              priority
             />
           </div>
         </div>
 
-        {/* Alt bölüm: hizmet listesi */}
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mt-14">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+        {/* Alt bölüm: 3 sütun liste */}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center mt-16 mb-10">
             Vergi Danışmanlığı Hizmetlerimiz
-        <h2 className="text-2xl font-bold text-center mt-16 mb-10">
-  Vergi Danışmanlığı Hizmetlerimiz
-</h2>
+          </h2>
 
-<div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-  {/* Sol sütun */}
-  <ul className="space-y-2 text-gray-700">
-    <li>Şirket Birleşme ve Satın Alımları Vergi Hizmetleri</li>
-    <li>Transfer Fiyatlandırması Hizmetleri</li>
-    <li>Ar-Ge Hizmetleri</li>
-  </ul>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Sol sütun */}
+            <ul className="space-y-2 text-gray-700">
+              <li>Şirket Birleşme ve Satın Alımları Vergi Hizmetleri</li>
+              <li>Transfer Fiyatlandırması Hizmetleri</li>
+              <li>Ar-Ge Hizmetleri</li>
+            </ul>
 
-  {/* Orta sütun */}
-  <ul className="space-y-2 text-gray-700">
-    <li>Dolaylı Vergi Hizmetleri</li>
-    <li>Tam Tasdik Hizmetleri</li>
-    <li>KDV İade Hizmetleri</li>
-  </ul>
+            {/* Orta sütun */}
+            <ul className="space-y-2 text-gray-700">
+              <li>Dolaylı Vergi Hizmetleri</li>
+              <li>Tam Tasdik Hizmetleri</li>
+              <li>KDV İade Hizmetleri</li>
+            </ul>
 
-  {/* Sağ sütun */}
-  <ul className="space-y-2 text-gray-700">
-    <li>Vergi Teknolojileri Hizmetleri</li>
-    <li>Muhasebe ve Mali Danışmanlık Hizmetleri</li>
-    <li>Uluslararası Vergi Hizmetleri</li>
-  </ul>
-</div>
-
-          </ul>
+            {/* Sağ sütun */}
+            <ul className="space-y-2 text-gray-700">
+              <li>Vergi Teknolojileri Hizmetleri</li>
+              <li>Muhasebe ve Mali Danışmanlık Hizmetleri</li>
+              <li>Uluslararası Vergi Hizmetleri</li>
+            </ul>
+          </div>
         </div>
       </section>
     </main>
