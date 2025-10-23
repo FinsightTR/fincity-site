@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Briefcase, BarChart3, Layers as StackIcon, Check, Layers } from "lucide-react";
+import Link from "next/link";
+
 
 /** GÜNDEM KARTLARI — JSX DIŞINDA TANIMLI */
 const NEWS = [
@@ -123,81 +125,89 @@ export default function Home() {
       </section>
 
     {/* HİZMETLER */}
-<section id="services" className="scroll-mt-24 py-16 sm:py-24 bg-gray-50">
+<section id="hizmetler" className="py-20 bg-gray-50">
   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div className="mx-auto max-w-3xl text-center">
-      <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-        Hizmetlerimiz
-      </h2>
-      <p className="mt-3 text-base text-gray-600 sm:text-lg">
-        Uzmanlık ve teknolojiyi bir araya getiriyoruz — böylece siz daha akıllı, daha hızlı ve daha başarılı olabilirsiniz.
-      </p>
-    </div>
+    <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">
+      Hizmetlerimiz
+    </h2>
 
-    <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {[
         {
+          slug: "dijital",
           title: "Dijital Hizmetler",
           desc: "Süreç otomasyonu (RPA), veri analitiği ve ERP/CRM entegrasyonlarıyla iş süreçlerinizi hızlandırıyor ve görünürlük sağlıyoruz.",
-          icon: <BarChart3 size={18} />,
+          icon: "💻",
         },
         {
+          slug: "vergi",
           title: "Vergi Danışmanlığı",
           desc: "Vergi planlaması, e-Fatura/e-Defter ve mevzuat uyum süreçlerinde uçtan uca çözümler sunuyoruz. Riskleri azaltır, süreçleri sadeleştiririz.",
-          icon: <StackIcon size={18} />,
+          icon: "📄",
         },
         {
+          slug: "insan-yonetimi",
           title: "İnsan Yönetimi ve Organizasyon Danışmanlığı",
           desc: "Performans, OKR/KPI sistemleri ve organizasyonel dönüşüm ile sürdürülebilir büyüme kültürü inşa ediyoruz.",
-          icon: <Briefcase size={18} />,
+          icon: "👥",
         },
         {
+          slug: "risk-surec-teknoloji",
           title: "Risk, Süreç ve Teknoloji",
           desc: "İç kontrol, süreç analizi ve teknoloji temelli optimizasyonlarla güvenli ve verimli operasyonlar kuruyoruz.",
-          icon: <Check size={18} />,
+          icon: "⚙️",
         },
         {
+          slug: "birlesme-satin-alma",
           title: "Şirket Birleşme ve Satın Alma",
           desc: "Değerleme, finansal due diligence ve birleşme sonrası entegrasyon süreçlerinde uçtan uca danışmanlık sağlıyoruz.",
-          icon: <Layers size={18} />,
+          icon: "🏢",
         },
         {
+          slug: "suistimal-uyum-kriz",
           title: "Suistimal, Uyum ve Kriz Yönetimi Danışmanlığı",
           desc: "Etik, uyum ve kriz senaryolarında politika, eğitim ve süreçlerle proaktif risk yönetimi sunuyoruz.",
-          icon: <Check size={18} />,
+          icon: "🛡️",
         },
         {
+          slug: "strateji-yonetim",
           title: "Strateji ve Yönetim Danışmanlığı",
           desc: "Kurumsal hedeflerinize uygun strateji, büyüme planı ve operasyonel verimlilik çözümleriyle sürdürülebilir başarıyı destekliyoruz.",
-          icon: <Briefcase size={18} />,
+          icon: "📈",
         },
         {
+          slug: "finansal-raporlama-muhasebe",
           title: "Finansal Raporlama ve Muhasebe Danışmanlığı",
           desc: "IFRS/BOBİ FRS uyumlu raporlama sistemleri kurarak finansal görünürlük ve analitik karar desteği sağlıyoruz.",
-          icon: <BarChart3 size={18} />,
+          icon: "💰",
         },
         {
+          slug: "aile-sirketi",
           title: "Aile Şirketi Hizmetleri",
           desc: "Aile anayasası, yönetişim modelleri ve nesiller arası geçiş planlamasıyla sürdürülebilir aile şirketleri oluşturuyoruz.",
-          icon: <Layers size={18} />,
+          icon: "🏠",
         },
       ].map((item) => (
-        <div
-          key={item.title}
-          className="rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md"
+        <Link
+          key={item.slug}
+          href={`/services/${item.slug}`}
+          className="rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md hover:-translate-y-1 duration-200"
         >
-          <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900 text-white">
+          <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900 text-white text-lg">
             {item.icon}
           </div>
-          <h3 className="text-lg font-semibold">{item.title}</h3>
+          <h3 className="text-lg font-semibold text-gray-900">
+            {item.title}
+          </h3>
           <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
-        </div>
+          <span className="mt-4 inline-block text-sm font-medium text-gray-900">
+            Detayları Gör →
+          </span>
+        </Link>
       ))}
     </div>
   </div>
 </section>
-
-
 
 
       {/* GÜNDEM */}
