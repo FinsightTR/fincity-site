@@ -1,11 +1,10 @@
  import Link from "next/link";
 import type { Metadata } from "next";
-import { Check, FileText, Shield, Workflow, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Vergi Danışmanlığı | Fincity",
   description:
-    "Vergi planlaması, e-Fatura/e-Defter ve mevzuat uyum süreçlerinde uçtan uca danışmanlık. Riskleri azaltır, süreçleri sadeleştiririz.",
+    "Fincity Vergi Hizmetleri Ekibi olarak işletmelerin vergi yönetiminde stratejik çözüm ortağıyız.",
 };
 
 export default function TaxServicePage() {
@@ -15,23 +14,47 @@ export default function TaxServicePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 text-sm">
           <nav className="text-gray-600">
             <Link href="/" className="hover:text-gray-900">Ana Sayfa</Link> <span className="mx-1">/</span>
-            <Link href="/services" className="hover:text-gray-900">Hizmetlerimiz</Link> <span className="mx-1">/</span>
+            <Link href="/#hizmetler" className="hover:text-gray-900">Hizmetlerimiz</Link> <span className="mx-1">/</span>
             <span className="text-gray-900 font-medium">Vergi Danışmanlığı</span>
           </nav>
         </div>
       </div>
 
-      <section className="py-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
-              Vergi Danışmanlığı
-            </h1>
-            <p className="mt-3 text-lg text-gray-700">
-              Vergi planlaması, e-Fatura/e-Defter ve mevzuat uyum süreçlerinde <span className="font-semibold">uçtan uca danışmanlık</span>. 
-              Riskleri azaltır, süreçleri sadeleştiririz. Kurulumdan sürekli yönetime kadar yanınızdayız.
-            </p>
-          </div>
+      <section className="py-16">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+            Vergi Danışmanlığı
+          </h1>
+
+          <p className="text-gray-700 text-lg leading-relaxed mb-6">
+            Fincity Vergi Hizmetleri Ekibi olarak temel hedefimiz, vergiyi bir işletme yükü olmaktan çıkarıp, 
+            şirketinizin sürdürülebilir büyümesini destekleyen stratejik bir unsur haline getirmektir. 
+            Bu doğrultuda, her kurumun yapısına, sektörüne ve uzun vadeli hedeflerine uygun çözümler geliştiriyor; 
+            mevzuatın karmaşıklığını sadeleştirerek yönetilebilir hale getiriyoruz.
+          </p>
+
+          <p className="text-gray-700 text-lg leading-relaxed mb-6">
+            Teknoloji odaklı yaklaşımımız sayesinde süreçlerinizi dijitalleştiriyor, raporlama ve uyum süreçlerinde 
+            şeffaflığı artırıyor, böylece karar alma mekanizmalarınızın daha hızlı ve isabetli işlemesini sağlıyoruz. 
+            Fincity olarak, değişen vergi ortamına uyum sağlama konusunda işletmenizin stratejik çözüm ortağı olmayı, 
+            riskleri öngörüp fırsatları yakalamanızda proaktif bir destek sunmayı amaçlıyoruz.
+          </p>
+
+          <h2 className="text-2xl font-semibold text-gray-900 mt-10 mb-4">
+            Vergi Danışmanlığı Hizmetlerimiz
+          </h2>
+
+          <ul className="list-disc pl-6 space-y-2 text-gray-700 text-lg">
+            <li>Şirket Birleşme ve Satın Alımları Vergi Hizmetleri</li>
+            <li>Transfer Fiyatlandırması Hizmetleri</li>
+            <li>Ar-Ge Hizmetleri</li>
+            <li>Dolaylı Vergi Hizmetleri</li>
+            <li>Tam Tasdik Hizmetleri</li>
+            <li>KDV İade Hizmetleri</li>
+            <li>Vergi Teknolojileri Hizmetleri</li>
+            <li>Muhasebe ve Mali Danışmanlık Hizmetleri</li>
+            <li>Uluslararası Vergi Hizmetleri</li>
+          </ul>
         </div>
       </section>
     </main>
