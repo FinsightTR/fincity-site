@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return (
     <nav className="flex items-center gap-6 text-sm font-medium">
-      <Link href="/#about" className="hover:text-gray-900">Hakkımızda</Link>
+      <Link href="/about" className="hover:text-gray-900">Hakkımızda</Link>
 
       <Link
         href={servicesHref}
