@@ -1,17 +1,16 @@
-// app/services/strateji-yonetim/page.tsx
-import Image from "next/image";
+ // app/services/strateji-yonetim/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Strateji ve Yönetim Danışmanlığı | Fincity",
   description:
-    "Kurumsal hedeflere uygun strateji geliştirme, OKR/KPI yapılandırma ve yönetim ritmi tasarımı hizmetleri.",
+    "Kurumsal strateji, OKR/KPI sistemleri, büyüme planlama, organizasyonel dönüşüm ve sürdürülebilir yönetim danışmanlığı hizmetleri.",
 };
 
 export default function StratejiYonetimPage() {
   return (
-    <main className="bg-white">
+    <main className="bg-white text-gray-900">
       {/* Breadcrumb */}
       <div className="border-b bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 text-sm">
@@ -25,38 +24,79 @@ export default function StratejiYonetimPage() {
         </div>
       </div>
 
-      {/* Görsel */}
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-        <div className="relative w-full h-80 rounded-2xl overflow-hidden">
-          <Image
+      {/* Hero */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
+              🧭 Strateji ve Yönetim Danışmanlığı
+            </h1>
+            <p className="mt-5 text-gray-700 leading-7">
+              Fincity olarak kurumların vizyonunu gerçeğe dönüştürmek için stratejik planlama, performans yönetimi ve operasyonel mükemmeliyet alanlarında 
+              uçtan uca danışmanlık sağlıyoruz.
+              <br /><br />
+              İş hedeflerinize uygun OKR/KPI sistemleri geliştiriyor, yönetim ritmini yeniden tanımlıyor ve sürdürülebilir büyüme için 
+              stratejik yol haritaları oluşturuyoruz. Her kurumun yapısına özel olarak, <strong>ölçülebilir, çevik ve etkili yönetim modelleri</strong> tasarlıyoruz.
+            </p>
+          </div>
+
+          <img
             src="/strateji-yonetim.jpg"
             alt="Strateji ve Yönetim Danışmanlığı"
-            fill
-            className="object-cover"
+            className="w-full h-72 sm:h-80 object-cover rounded-2xl border border-gray-200"
           />
         </div>
+      </section>
 
-        {/* Başlık ve Açıklama */}
-        <h1 className="text-3xl sm:text-4xl font-bold mt-10 mb-6">
-          Strateji ve Yönetim Danışmanlığı
-        </h1>
-        <p className="text-gray-700 leading-7 mb-6">
-          Kurumsal hedeflerinize uygun stratejiler geliştiriyor, yönetim süreçlerini optimize ediyor ve sürdürülebilir büyüme için gerekli yönetim ritmini oluşturuyoruz.
-        </p>
-        <p className="text-gray-700 leading-7 mb-10">
-          Stratejik planlama, performans ölçümü ve yönetim sistemleri konusunda uzman ekibimizle, kurumların vizyonunu somut hedeflere dönüştürmesine yardımcı oluyoruz.
-        </p>
+      {/* Alt Hizmetler */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6">
+          💼 Strateji ve Yönetim Danışmanlığı Hizmetlerimiz
+        </h2>
 
-        {/* Alt Hizmetler */}
-        <h2 className="text-2xl font-semibold mb-4">Strateji ve Yönetim Danışmanlığı Hizmetlerimiz</h2>
-        <ul className="list-disc ml-6 space-y-3 text-gray-700">
-          <li>🎯 Stratejik Planlama ve Kurumsal Dönüşüm Yönetimi</li>
-          <li>📊 OKR ve KPI Yapılandırma ve Takip Sistemleri</li>
-          <li>🧭 Yönetim Raporlama ve Karar Destek Sistemleri</li>
-          <li>🤝 Kurumsal Performans Yönetimi</li>
-          <li>📅 Yönetim Ritmi ve Yönetim Toplantı Yapısının Tasarımı</li>
-          <li>💡 Stratejik Risk Analizi ve Süreç İyileştirme</li>
-        </ul>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+          <div className="rounded-2xl border border-gray-200 bg-white p-6">
+            <h3 className="text-lg font-semibold mb-2">🎯 Stratejik Planlama & Hedef Belirleme</h3>
+            <p className="text-gray-700">
+              Kurum vizyonu, pazar dinamikleri ve büyüme hedefleri doğrultusunda stratejik planlama süreci ve yol haritası oluşturma.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-gray-200 bg-white p-6">
+            <h3 className="text-lg font-semibold mb-2">📊 OKR & KPI Yönetim Sistemleri</h3>
+            <p className="text-gray-700">
+              Kurumsal hedeflerle bireysel performansı hizalayan OKR/KPI yapılarını kurma ve yönetim kültürüne entegre etme.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-gray-200 bg-white p-6">
+            <h3 className="text-lg font-semibold mb-2">🏢 Organizasyonel Strateji & Yapılanma</h3>
+            <p className="text-gray-700">
+              İş modeli analizi, süreç yeniden tasarımı ve organizasyon yapısının stratejiyle uyumlu hale getirilmesi.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-gray-200 bg-white p-6">
+            <h3 className="text-lg font-semibold mb-2">🚀 Dijital & Operasyonel Dönüşüm</h3>
+            <p className="text-gray-700">
+              Dijitalleşme, verimlilik artışı ve süreç otomasyonu odaklı dönüşüm stratejileriyle sürdürülebilir başarı sağlama.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-gray-200 bg-white p-6">
+            <h3 className="text-lg font-semibold mb-2">📈 Kurumsal Performans Yönetimi</h3>
+            <p className="text-gray-700">
+              Kurumsal hedeflerin düzenli takibi, yönetim raporlaması ve stratejik performans analizlerinin yürütülmesi.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-gray-200 bg-white p-6">
+            <h3 className="text-lg font-semibold mb-2">🌍 Sürdürülebilirlik & ESG Stratejileri</h3>
+            <p className="text-gray-700">
+              Çevresel, sosyal ve yönetişim (ESG) kriterlerini stratejik karar alma süreçlerine entegre etme ve raporlama desteği.
+            </p>
+          </div>
+        </div>
       </section>
     </main>
   );
