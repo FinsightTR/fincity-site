@@ -2,7 +2,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Navbar from "@/app/components/Navbar";
+import Navbar from "./components/Navbar"; // ✅ alias yerine göreli yol
 
 export const metadata: Metadata = {
   title: "Fincity",
@@ -30,7 +30,7 @@ export default function RootLayout({
           </div>
         </header>
 
-        {/* Sayfa İçeriği */}
+        {/* Sayfa içeriği */}
         <main>{children}</main>
       </body>
     </html>
