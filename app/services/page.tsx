@@ -11,14 +11,23 @@ const SERVICES = [
   {
     slug: "dijital",
     title: "Dijital Hizmetler",
-    desc: "RPA/low-code, ERP/CRM entegrasyonları, veri ambarı ve dashboard çözümleri.",
+    desc:
+      "RPA/low-code, ERP/CRM entegrasyonları, veri ambarı ve dashboard çözümleri.",
   },
   {
     slug: "vergi",
     title: "Vergi Danışmanlığı",
-    desc: "Vergi uyumu, beyannameler, stratejik vergi planlaması ve inceleme danışmanlığı.",
+    desc:
+      "Vergi uyumu, beyannameler, stratejik vergi planlaması ve inceleme danışmanlığı.",
+  },
+  {
+    slug: "insan-yonetimi",
+    title: "İnsan Yönetimi ve Organizasyon Danışmanlığı",
+    desc:
+      "OKR/KPI, organizasyonel tasarım, İK & SGK uyum, eğitim ve performans sistemleri.",
   },
 ];
+
 
 export default function ServicesIndexPage() {
   return (
