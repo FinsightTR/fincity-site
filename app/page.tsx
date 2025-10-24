@@ -21,20 +21,8 @@ export default function HomePage() {
           <span className="font-semibold text-gray-900">daha hızlı</span> ve{" "}
           <span className="font-semibold text-gray-900">daha başarılı</span> olabilirsiniz.
         </p>
-        <div className="mt-8 flex justify-center gap-3">
-          <Link
-            href="/contact"
-            className="rounded-xl bg-gray-900 px-5 py-2.5 text-white hover:bg-gray-800"
-          >
-            Teklif Al →
-          </Link>
-          <Link
-            href="/#hizmetler"
-            className="rounded-xl border border-gray-300 px-5 py-2.5 hover:bg-gray-50"
-          >
-            Hizmetlerimiz
-          </Link>
-        </div>
+      <div className="mt-8"></div>
+
       </section>
 
       {/* HAKKIMIZDA */}
