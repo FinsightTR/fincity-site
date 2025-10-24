@@ -1,132 +1,111 @@
-// app/services/insan-yonetimi/page.tsx
+ // app/services/insan-yonetimi/page.tsx
 import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "İnsan Yönetimi ve Organizasyon Danışmanlığı | Fincity",
   description:
-    "İK danışmanlığı, organizasyonel tasarım, OKR/KPI, eğitim & gelişim, SGK ve iş hukuku/uyum hizmetleri.",
+    "OKR/KPI yapıları, organizasyon tasarımı, İK süreçleri, SGK uyumu, performans ve ücret yönetimi, İK analitiği.",
 };
 
-export default function HumanOrgServicePage() {
+export default function InsanYonetimiPage() {
   return (
     <main className="bg-white">
-      {/* Breadcrumb */}
+      {/* BREADCRUMB */}
       <div className="border-b bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 text-sm">
+        <div className="mx-auto max-w-7xl px-4 py-3 text-sm">
           <nav className="text-gray-600">
             <Link href="/" className="hover:text-gray-900">Ana Sayfa</Link>
             <span className="mx-2">/</span>
             <Link href="/services" className="hover:text-gray-900">Hizmetlerimiz</Link>
             <span className="mx-2">/</span>
-            <span className="text-gray-900 font-medium">
-              İnsan Yönetimi ve Organizasyon Danışmanlığı
-            </span>
+            <span className="text-gray-900 font-medium">İnsan Yönetimi ve Organizasyon</span>
           </nav>
         </div>
       </div>
 
-      {/* Hero */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      {/* HERO */}
+      <section className="mx-auto max-w-7xl px-4 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
               İnsan Yönetimi ve Organizasyon Danışmanlığı
             </h1>
             <p className="mt-4 text-gray-700 leading-7">
-              Fincity olarak, insan kaynakları süreçlerinizi verimli, şeffaf ve
-              ölçülebilir hale getiriyor; organizasyon yapınızı büyüme
-              hedeflerinizle hizalıyoruz. Performans, yetenek ve kültür odaklı,
-              veriyle yönetilen bir İK modeli kurmanıza yardımcı oluyoruz.
+              İnsan kaynakları ve organizasyon süreçlerinizi performans, şeffaflık ve
+              ölçeklenebilirlik odağında yeniden kurguluyoruz. OKR/KPI yapıları, rol &
+              sorumluluklar, iş gücü planlama ve veri temelli İK analitiği ile büyüme
+              hedeflerinize hizalanmış bir yapı kurmanıza yardımcı oluruz.
             </p>
-            <ul className="mt-6 space-y-2 text-gray-700">
-              <li>• <b>Ölçülebilir performans:</b> OKR/KPI yapılarıyla hedefler ve çıktılar netleşir.</li>
-              <li>• <b>Uygun organizasyon:</b> Roller ve iş akışları sadeleşir, verimlilik artar.</li>
-              <li>• <b>Uyum &amp; güven:</b> İş kanunu/SGK süreçleri mevzuata tam uyumlu ilerler.</li>
+
+            <ul className="mt-6 space-y-3 text-gray-800">
+              <li>• <b>Ölçülebilir performans:</b> OKR/KPI hedef kademelendirme ve ritim.</li>
+              <li>• <b>Uygun organizasyon:</b> Roller, iş akışları ve yetkinlik matrisleri.</li>
+              <li>• <b>Uyum & güven:</b> İş kanunu/SGK süreçleri ile tam mevzuat uyumu.</li>
+              <li>• <b>Veriyle yönetim:</b> İK analitiği, raporlama panelleri ve içgörü.</li>
             </ul>
-            {/* CTA butonları kaldırıldı */}
           </div>
 
-          <div>
-            {/* /public/insan-yonetimi.jpg dosyası gereklidir */}
-            <img
-  src="/insan-yonetimi.png"
-  alt="İnsan yönetimi ve organizasyon danışmanlığı"
-  className="w-full rounded-2xl border border-gray-200 shadow-sm object-cover"
-/>
-          </div>
+          {/* Görseli /public klasörüne koyun: insan-yonetimi.png */}
+          <img
+            src="/insan-yonetimi.png"
+            alt="İnsan yönetimi ve organizasyon danışmanlığı"
+            className="w-full rounded-2xl border border-gray-200 shadow-sm object-cover"
+          />
         </div>
       </section>
 
-      {/* İnsan Yönetimi ve Organizasyon Danışmanlığı Hizmetlerimiz */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
+      {/* ALT HİZMETLER */}
+      <section className="mx-auto max-w-7xl px-4 pb-16">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
           İnsan Yönetimi ve Organizasyon Danışmanlığı Hizmetlerimiz
         </h2>
-        <p className="mt-3 text-gray-700">
-          Aşağıdaki başlıklar modüler yapıdadır; ihtiyacınıza göre tek tek veya paket halinde uygulanır.
-        </p>
 
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-            <h3 className="text-lg font-semibold text-gray-900">İnsan Kaynakları Danışmanlığı</h3>
-            <p className="mt-2 text-sm text-gray-600">
-              İşe alım/yerleştirme, bordro &amp; özlük, yan hak tasarımı, kariyer ve
-              yedekleme planları, çalışan yaşam döngüsü tasarımı.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-            <h3 className="text-lg font-semibold text-gray-900">Sosyal Güvenlik Hizmetleri</h3>
-            <p className="mt-2 text-sm text-gray-600">
-              SGK süreçleri, teşvik ve muafiyet yönetimi, denetim hazırlığı,
-              iş hukuku uyumu ve raporlama.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-            <h3 className="text-lg font-semibold text-gray-900">Organizasyonel Tasarım &amp; Yeniden Yapılanma</h3>
-            <p className="mt-2 text-sm text-gray-600">
-              Organizasyon şeması, görev tanımları, yetki-sorumluluk (RACI)
-              matrisi, büyüme/birleşme sonrası yeniden tasarım.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-            <h3 className="text-lg font-semibold text-gray-900">Performans ve OKR/KPI Sistemleri</h3>
-            <p className="mt-2 text-sm text-gray-600">
-              Hedef kırılımı, göstergelerin tasarımı, prim &amp; ödül modelleri,
-              dönemsel değerlendirme ritüeli, dashboard’lar.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-            <h3 className="text-lg font-semibold text-gray-900">Eğitim &amp; Gelişim Programları</h3>
-            <p className="mt-2 text-sm text-gray-600">
-              Liderlik, iletişim, geri bildirim, koçluk yaklaşımı, yeni yönetici
-              programları; ihtiyaç analizi ve yıllık gelişim kataloğu.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-            <h3 className="text-lg font-semibold text-gray-900">Çalışan Deneyimi &amp; Bağlılık</h3>
-            <p className="mt-2 text-sm text-gray-600">
-              Memnuniyet/bağlılık anketleri, oryantasyon optimizasyonu, iç
-              iletişim ritüelleri ve esenlik programları.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-            <h3 className="text-lg font-semibold text-gray-900">İş Hukuku &amp; Uyum Danışmanlığı</h3>
-            <p className="mt-2 text-sm text-gray-600">
-              İK süreçlerinin hukuki çerçevesi, sözleşmeler, disiplin süreçleri,
-              KVKK uyumu ve denetimlerde mevzuata uygunluk desteği.
-            </p>
-          </div>
+          {[
+            {
+              t: "İnsan Kaynakları Danışmanlığı",
+              d: "İşe alım–oryantasyon, yetenek yönetimi, kariyer yolları ve yedekleme.",
+            },
+            {
+              t: "Sosyal Güvenlik Hizmetleri",
+              d: "SGK süreçleri, teşvikler, bordro kontrolleri ve mevzuat uyumu.",
+            },
+            {
+              t: "Organizasyon Tasarımı & İş Gücü Planlama",
+              d: "Rol/sorumluluklar, organizasyonel yapı, norm kadro ve kapasite planı.",
+            },
+            {
+              t: "Performans & Ücret Yönetimi",
+              d: "OKR/KPI tasarımı, prim/bonus sistemleri, ücret bantları ve ücretlendirme komitesi.",
+            },
+            {
+              t: "Uyum & Politika Setleri",
+              d: "Çalışan el kitabı, etik & disiplin, hibrit/uzaktan çalışma, izin ve yan hak politikaları.",
+            },
+            {
+              t: "İK Analitiği & Raporlama",
+              d: "Headcount, devir, devamsızlık, verimlilik ve memnuniyet panelleri.",
+            },
+            {
+              t: "Eğitim, Mentorluk & Devir",
+              d: "Yönetici koçluğu, eğitim tasarımı ve kurum içi devretme modelleri.",
+            },
+            {
+              t: "Çalışan Deneyimi & İç İletişim",
+              d: "Onboarding, anketler, aksiyon planı ve iç iletişim ritmi tasarımı.",
+            },
+          ].map((c) => (
+            <div
+              key={c.t}
+              className="rounded-2xl border border-gray-200 bg-white p-6 hover:shadow-sm transition-shadow"
+            >
+              <h3 className="text-lg font-semibold text-gray-900">{c.t}</h3>
+              <p className="mt-2 text-sm text-gray-600">{c.d}</p>
+            </div>
+          ))}
         </div>
       </section>
-
-      {/* Alt CTA bölümü kaldırıldı */}
     </main>
   );
 }
