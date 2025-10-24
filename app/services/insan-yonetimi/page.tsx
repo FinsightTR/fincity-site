@@ -50,10 +50,10 @@ export default function HumanOrgServicePage() {
           <div>
             {/* /public/insan-yonetimi.jpg dosyası gereklidir */}
             <img
-              src="/insan-yonetimi.jpg"
-              alt="İnsan yönetimi ve organizasyon danışmanlığı"
-              className="w-full rounded-2xl border border-gray-200 shadow-sm object-cover"
-            />
+  src="/insan-yonetimi.png"
+  alt="İnsan yönetimi ve organizasyon danışmanlığı"
+  className="w-full rounded-2xl border border-gray-200 shadow-sm object-cover"
+/>
           </div>
         </div>
       </section>
