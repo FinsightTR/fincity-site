@@ -2,10 +2,9 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
-import LoginForm from "@/app/components/LoginForm";
+import LoginForm from "@/app/login/LoginForm";
 
 export const dynamic = "force-dynamic";
-
 export const metadata = { title: "Giriş | Fincity" };
 
 export default async function LoginPage({
@@ -25,9 +24,7 @@ export default async function LoginPage({
     }
   );
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { data: { session } } = await supabase.auth.getSession();
 
   const nextPath =
     searchParams?.next && searchParams.next.startsWith("/")
