@@ -1,39 +1,40 @@
- "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
+// app/login/page.tsx
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { createServerClient } from "@supabase/ssr";
+import LoginForm from "@/app/components/LoginForm";
 
-export default function LoginPage() {
-  const r = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+export const dynamic = "force-dynamic";
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    setLoading(false);
-    if (error) return alert(error.message);
-    r.push("/dashboard");
-  }
+export const metadata = { title: "Giriş | Fincity" };
 
-  return (
-    <div className="min-h-[70vh] flex items-center justify-center bg-gray-50">
-      <form onSubmit={onSubmit} className="bg-white p-8 rounded-2xl shadow w-full max-w-sm space-y-4">
-        <h1 className="text-2xl font-bold text-center">Fincity Giriş</h1>
-        <input
-          type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-posta" className="w-full border rounded p-2" required
-        />
-        <input
-          type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-          placeholder="Şifre" className="w-full border rounded p-2" required
-        />
-        <button disabled={loading} className="w-full bg-blue-600 text-white rounded p-2">
-          {loading ? "Giriş yapılıyor..." : "Giriş Yap"}
-        </button>
-      </form>
-    </div>
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams?: { next?: string };
+}) {
+  const cookieStore = await cookies();
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get: (name: string) => cookieStore.get(name)?.value,
+      },
+    }
   );
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const nextPath =
+    searchParams?.next && searchParams.next.startsWith("/")
+      ? searchParams.next
+      : "/dashboard";
+
+  if (session) redirect(nextPath);
+
+  return <LoginForm />;
 }

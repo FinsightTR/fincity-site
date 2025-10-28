@@ -1,10 +1,9 @@
 // next.config.ts
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
-  images: {
-    unoptimized: true, // Next/Image optimizer kapalı
-  },
+  outputFileTracingRoot: path.join(__dirname),
 };
 
 export default nextConfig;

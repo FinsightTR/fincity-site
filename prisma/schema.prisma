@@ -1,0 +1,13 @@
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // pooler
+  directUrl = env("DIRECT_URL")   // direkt bağlantı (migrate vs. için)
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+
