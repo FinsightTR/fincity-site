@@ -1,9 +1,9 @@
-// app/login/LoginForm.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import type { User } from "@supabase/supabase-js";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -11,24 +11,31 @@ export default function LoginForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  // /login?next=/hedef → yalnız iç (/) path'lere izin ver
   const rawNext = searchParams?.get("next") || "";
   const nextPath = rawNext.startsWith("/") ? rawNext : "/dashboard";
 
-  // Oturum varsa yönlendir
   useEffect(() => {
-    let mounted = true;
     const sb = createClientComponentClient();
-    sb.auth.getUser().then(({ data }) => {
-      if (!mounted) return;
-      if (data.user) router.replace(nextPath);
-    });
-    return () => { mounted = false; };
-  }, [router, nextPath]);
+    sb.auth.getUser().then(({ data }) => setUser(data.user ?? null));
+    const { data: sub } = sb.auth.onAuthStateChange((_e, session) =>
+      setUser(session?.user ?? null)
+    );
+    return () => sub.subscription.unsubscribe();
+  }, []);
+
+  const fullName = useMemo(() => {
+    const m = (user?.user_metadata ?? {}) as Record<string, any>;
+    return (
+      m.full_name ||
+      m.name ||
+      m.display_name ||
+      (user?.email ? user.email.split("@")[0] : "")
+    );
+  }, [user]);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -64,6 +71,13 @@ export default function LoginForm() {
         className="bg-white p-8 rounded-2xl shadow w-full max-w-sm space-y-4"
         noValidate
       >
+        {/* >>> Hoş geldin mesajı: Fincity Giriş başlığının ÜSTÜNDE <<< */}
+        {user && (
+          <p className="text-center text-sm text-gray-700">
+            Hoş geldin{fullName ? `, ${fullName}` : ""}!
+          </p>
+        )}
+
         <h1 className="text-2xl font-bold text-center">Fincity Giriş</h1>
 
         {err && (
