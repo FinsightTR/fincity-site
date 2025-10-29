@@ -4,10 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getSupabaseBrowser } from "@/lib/supabaseBrowser";
+import type { User } from "@supabase/supabase-js";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [user, setUser] = useState<any | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loaded, setLoaded] = useState(false);
 
   const onAbout = pathname.startsWith("/about");
@@ -21,16 +22,13 @@ export default function Navbar() {
 
   useEffect(() => {
     const sb = getSupabaseBrowser();
-
     sb.auth.getUser().then(({ data }) => {
       setUser(data.user ?? null);
       setLoaded(true);
     });
-
     const { data: sub } = sb.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
-
     return () => sub.subscription.unsubscribe();
   }, []);
 
@@ -46,13 +44,11 @@ export default function Navbar() {
         <Link href="/" className="font-semibold text-lg text-gray-900 hover:text-gray-700">
           Fincity
         </Link>
-
         <nav className="flex items-center gap-6 text-sm font-medium">
           <Link href="/about" className={`${base} ${onAbout ? active : inactive}`}>Hakkımızda</Link>
           <Link href="/services" className={`${base} ${onServices ? active : inactive}`}>Hizmetlerimiz</Link>
           <Link href="/#news" className={`${base} ${pathname === "/#news" ? active : inactive}`}>Gündem</Link>
           <Link href="/contact" className={`${onContact ? active : inactive} ${base}`}>İletişim</Link>
-
           {!loaded ? (
             <span className="text-gray-400">...</span>
           ) : !user ? (
