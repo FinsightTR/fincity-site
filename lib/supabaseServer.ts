@@ -2,18 +2,23 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 
-/** Server Component'larda kullanılacak Supabase client */
-export function getServerSupabase() {
+export function getSupabaseServer() {
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name: string) {
-          return cookies().get(name)?.value;
+        // Next 15: cookies() artık Promise, o yüzden await kullan
+        async get(name: string) {
+          const store = await cookies();
+          return store.get(name)?.value;
         },
-        set() { /* no-op */ },
-        remove() { /* no-op */ },
+        async set() {
+          // no-op (Vercel edge ortamında yazılamaz)
+        },
+        async remove() {
+          // no-op
+        },
       },
     }
   );
