@@ -2,15 +2,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
+// Cookie seçeneklerini "any" kullanmadan tanımlayalım
+type CookieOptions = {
+  path?: string;
+  httpOnly?: boolean;
+  secure?: boolean;
+  sameSite?: "lax" | "strict" | "none";
+  expires?: Date;
+  maxAge?: number;
+  domain?: string;
+};
+
 /**
- * Sunucu tarafında oturumu sonlandırır.
- * Cookie'leri temizler ve login sayfasına yönlendirir.
+ * Sunucu tarafında oturumu sonlandırır, cookie'leri temizler ve /login'e yönlendirir.
  */
 export async function POST(req: NextRequest) {
-  // Kullanıcıyı login sayfasına yönlendireceğiz
+  // Yanıtı önceden oluşturuyoruz ki cookie set/remove işlemlerini bu yanıt üzerinde yapalım.
   const res = NextResponse.redirect(new URL("/login", req.url));
 
-  // Supabase server client oluştur
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -19,19 +28,18 @@ export async function POST(req: NextRequest) {
         get(name: string) {
           return req.cookies.get(name)?.value;
         },
-        set(name: string, value: string, options: any) {
+        set(name: string, value: string, options?: CookieOptions) {
           res.cookies.set({ name, value, ...options });
         },
-        remove(name: string, options: any) {
-          res.cookies.set({ name, value: "", ...options });
+        remove(name: string, options?: CookieOptions) {
+          // Cookie'yi silmek için boş değer + maxAge:0 kullanıyoruz.
+          res.cookies.set({ name, value: "", maxAge: 0, ...options });
         },
       },
     }
   );
 
-  // Oturumu kapat
   await supabase.auth.signOut();
 
-  // Yönlendirmeyi gönder
   return res;
 }
