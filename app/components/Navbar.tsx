@@ -1,9 +1,8 @@
-// app/components/Navbar.tsx
 "use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { getSupabaseBrowser } from "@/lib/supabaseBrowser";
 import type { User } from "@supabase/supabase-js";
 
@@ -23,23 +22,30 @@ export default function Navbar() {
 
   useEffect(() => {
     const sb = getSupabaseBrowser();
-
     sb.auth.getUser().then(({ data }) => {
       setUser(data.user ?? null);
       setLoaded(true);
     });
-
-    const { data: { subscription } } = sb.auth.onAuthStateChange((_event, session) => {
+    const { data: sub } = sb.auth.onAuthStateChange((_evt, session) => {
       setUser(session?.user ?? null);
     });
-
-    return () => subscription.unsubscribe();
+    return () => sub.subscription.unsubscribe();
   }, []);
+
+  // Kullanıcı adı: full_name > name > display_name > e-posta prefix
+  const fullName = useMemo(() => {
+    const m = user?.user_metadata as any;
+    return (
+      m?.full_name ||
+      m?.name ||
+      m?.display_name ||
+      (user?.email ? user.email.split("@")[0] : "")
+    );
+  }, [user]);
 
   const handleLogout = async () => {
     const sb = getSupabaseBrowser();
     await sb.auth.signOut();
-    // Alternatif (tam sunucu tarafı çıkış): await fetch("/auth/signout", { method: "POST" });
     window.location.href = "/login";
   };
 
@@ -64,6 +70,11 @@ export default function Navbar() {
             </Link>
           ) : (
             <>
+              {/* Hoş geldin metni */}
+              <span className="text-gray-700 hidden sm:inline">
+                Hoş geldin{fullName ? `, ${fullName}` : ""}!
+              </span>
+
               {!onDashboard && (
                 <Link href="/dashboard" className="px-3 py-1.5 rounded bg-blue-600 text-white hover:bg-blue-700 transition">
                   Panel
