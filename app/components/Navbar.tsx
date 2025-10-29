@@ -1,3 +1,4 @@
+// app/components/Navbar.tsx
 "use client";
 
 import Link from "next/link";
@@ -22,19 +23,23 @@ export default function Navbar() {
 
   useEffect(() => {
     const sb = getSupabaseBrowser();
+
     sb.auth.getUser().then(({ data }) => {
       setUser(data.user ?? null);
       setLoaded(true);
     });
-    const { data: sub } = sb.auth.onAuthStateChange((_event, session) => {
+
+    const { data: { subscription } } = sb.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
-    return () => sub.subscription.unsubscribe();
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const handleLogout = async () => {
     const sb = getSupabaseBrowser();
     await sb.auth.signOut();
+    // Alternatif (tam sunucu tarafı çıkış): await fetch("/auth/signout", { method: "POST" });
     window.location.href = "/login";
   };
 
@@ -44,11 +49,13 @@ export default function Navbar() {
         <Link href="/" className="font-semibold text-lg text-gray-900 hover:text-gray-700">
           Fincity
         </Link>
+
         <nav className="flex items-center gap-6 text-sm font-medium">
           <Link href="/about" className={`${base} ${onAbout ? active : inactive}`}>Hakkımızda</Link>
           <Link href="/services" className={`${base} ${onServices ? active : inactive}`}>Hizmetlerimiz</Link>
           <Link href="/#news" className={`${base} ${pathname === "/#news" ? active : inactive}`}>Gündem</Link>
           <Link href="/contact" className={`${onContact ? active : inactive} ${base}`}>İletişim</Link>
+
           {!loaded ? (
             <span className="text-gray-400">...</span>
           ) : !user ? (

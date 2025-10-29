@@ -1,20 +1,26 @@
- // app/services/[slug]/page.tsx
+// app/services/[slug]/page.tsx
 import { notFound } from "next/navigation";
 import DijitalPage from "../dijital/page";
 import VergiPage from "../vergi/page";
 
-const pages: Record<string, React.FC> = {
+// Bileşen türü için FC yerine ComponentType kullanıyoruz (ekstra import gerekmez)
+const pages: Record<string, React.ComponentType> = {
   dijital: DijitalPage,
   vergi: VergiPage,
   // ileride başka sayfalar eklersen buraya ekle
 };
 
-export default function ServiceSlugPage({
+type Params = { slug: string };
+
+export default async function ServiceSlugPage({
   params,
 }: {
-  params: { slug: string };
+  // Next.js 15: params Promise olarak gelir
+  params: Promise<Params>;
 }) {
-  const PageComponent = pages[params.slug];
+  const { slug } = await params;
+
+  const PageComponent = pages[slug];
 
   if (!PageComponent) {
     notFound();
