@@ -71,17 +71,20 @@ export default function LoginForm() {
         className="bg-white p-8 rounded-2xl shadow w-full max-w-sm space-y-4"
         noValidate
       >
-        {/* >>> Hoş geldin mesajı: Fincity Giriş başlığının ÜSTÜNDE <<< */}
+        {/* 👇 Hoş geldin başlığı (Fincity Giriş ile aynı stil, ünlemsiz) */}
         {user && (
-          <p className="text-center text-sm text-gray-700">
-            Hoş geldin{fullName ? `, ${fullName}` : ""}!
+          <p className="text-2xl font-bold text-center">
+            Hoş geldin, {fullName}
           </p>
         )}
 
         <h1 className="text-2xl font-bold text-center">Fincity Giriş</h1>
 
         {err && (
-          <p role="alert" className="text-sm text-red-700 bg-red-50 border border-red-200 rounded p-2">
+          <p
+            role="alert"
+            className="text-sm text-red-700 bg-red-50 border border-red-200 rounded p-2"
+          >
             {err}
           </p>
         )}
