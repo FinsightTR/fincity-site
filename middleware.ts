@@ -3,11 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 export async function middleware(req: NextRequest) {
-  // Varsayılan response nesnesi oluştur
   const res = NextResponse.next();
 
   try {
-    // Supabase server client oluştur
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -17,7 +15,6 @@ export async function middleware(req: NextRequest) {
             return req.cookies.getAll();
           },
           setAll(cookies) {
-            // Supabase oturum cookie'si değişirse response'a uygula
             for (const { name, value, options } of cookies) {
               res.cookies.set(name, value, options);
             }
@@ -26,32 +23,52 @@ export async function middleware(req: NextRequest) {
       }
     );
 
-    // Aktif oturumu kontrol et
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
+    // 1) Oturum bilgisi
+    const { data: sessionData } = await supabase.auth.getSession();
+    const session = sessionData.session;
 
-    // /dashboard koruması
-    if (req.nextUrl.pathname.startsWith("/dashboard") && !session) {
+    // 2) Korunacak yollar (login gerektirir)
+    const protectedPrefixes = ["/dashboard", "/panel", "/erp", "/mukellef"];
+
+    const path = req.nextUrl.pathname;
+    const isProtected = protectedPrefixes.some((p) => path.startsWith(p));
+
+    // Login değilse -> /login?next=<hedef>
+    if (isProtected && !session) {
       const loginUrl = new URL("/login", req.url);
-      loginUrl.searchParams.set("next", req.nextUrl.pathname + req.nextUrl.search);
+      loginUrl.searchParams.set("next", path + req.nextUrl.search);
       return NextResponse.redirect(loginUrl);
     }
 
-    // /login iken oturum varsa dashboard'a yönlendir
-    if (req.nextUrl.pathname === "/login" && session) {
-      return NextResponse.redirect(new URL("/dashboard", req.url));
+    // 3) Rol kontrolü (/erp = admin)
+    if (path.startsWith("/erp") && session) {
+      const { data: userData } = await supabase.auth.getUser();
+      const role = (userData.user?.user_metadata?.role ?? "user") as
+        | "admin"
+        | "manager"
+        | "user";
+      if (role !== "admin") {
+        const back = new URL("/panel", req.url);
+        back.searchParams.set("m", "unauthorized");
+        return NextResponse.redirect(back);
+      }
     }
 
-    // Diğer tüm istekleri devam ettir
+    // 4) Zaten login iken /login'e gelirse -> panele/dash'e at
+    if (path === "/login" && session) {
+      // Tercihin hangisiyse onu kullan: /panel veya /dashboard
+      return NextResponse.redirect(new URL("/panel", req.url));
+      // return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
+
     return res;
-  } catch (error) {
-    console.error("Middleware hata:", error);
+  } catch (e) {
+    console.error("Middleware hata:", e);
     return new NextResponse("Middleware error", { status: 500 });
   }
 }
 
-// Middleware sadece login ve dashboard rotalarında çalışsın
+// IMPORTANT: Middleware bu rotalarda çalışsın
 export const config = {
-  matcher: ["/dashboard/:path*", "/login"],
+  matcher: ["/login", "/dashboard/:path*", "/panel/:path*", "/erp/:path*", "/mukellef/:path*"],
 };
