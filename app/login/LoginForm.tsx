@@ -1,4 +1,4 @@
-// app/components/LoginForm.tsx
+// app/login/LoginForm.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -15,7 +15,7 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  // /login?next=/hedef → sadece iç (/) path'e izin ver
+  // /login?next=/hedef → yalnız iç (/) path'lere izin ver
   const rawNext = searchParams?.get("next") || "";
   const nextPath = rawNext.startsWith("/") ? rawNext : "/dashboard";
 
@@ -27,9 +27,7 @@ export default function LoginForm() {
       if (!mounted) return;
       if (data.user) router.replace(nextPath);
     });
-    return () => {
-      mounted = false;
-    };
+    return () => { mounted = false; };
   }, [router, nextPath]);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
