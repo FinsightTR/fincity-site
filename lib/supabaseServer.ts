@@ -2,22 +2,19 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 
-export function getSupabaseServer() {
+export async function getSupabaseServer() {
+  const store = await cookies();
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        // Next 15: cookies() artık Promise, o yüzden await kullan
-        async get(name: string) {
-          const store = await cookies();
-          return store.get(name)?.value;
+        getAll() {
+          return store.getAll();
         },
-        async set() {
-          // no-op (Vercel edge ortamında yazılamaz)
-        },
-        async remove() {
-          // no-op
+        setAll() {
+          // Route/page handler dışında yanıt nesnesi yok → no-op
+          // (Cookie yazımı gereken yerlerde handler içinde yukarıdaki route.ts yaklaşımı kullanılmalı)
         },
       },
     }
