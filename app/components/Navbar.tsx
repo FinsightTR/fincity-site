@@ -1,3 +1,4 @@
+// app/components/Navbar.tsx
 'use client';
 
 import Link from 'next/link';
@@ -16,7 +17,9 @@ export default function Navbar() {
   useEffect(() => {
     let mounted = true;
     supabase.auth.getUser().then(({ data }) => mounted && setUser(data.user ?? null));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) =>
+      setUser(s?.user ?? null)
+    );
     return () => {
       mounted = false;
       sub.subscription.unsubscribe();
@@ -39,6 +42,9 @@ export default function Navbar() {
     );
   };
 
+  // Tek CTA: kullanıcı varsa /panel, yoksa /login?next=/panel
+  const panelHref = user ? '/panel' : '/login?next=/panel';
+
   return (
     <header className="w-full border-b bg-white">
       <nav className="mx-auto max-w-6xl flex items-center justify-between px-4 py-3">
@@ -47,18 +53,25 @@ export default function Navbar() {
           Fincity
         </Link>
 
-        {/* Orta: Menü */}
+        {/* Orta: Menü (Panel kaldırıldı) */}
         <div className="flex items-center gap-1">
           {navLink('/about', 'Hakkımızda')}
-          {navLink('/services', 'Hizmetlerimiz')} {/* ✅ Artık /services */}
+          {navLink('/services', 'Hizmetlerimiz')}
           {navLink('/gundem', 'Gündem')}
           {navLink('/contact', 'İletişim')}
-          {navLink('/panel', 'Panel')}
         </div>
 
-        {/* Sağ: Auth */}
+        {/* Sağ: Tek buton + (varsa) çıkış */}
         <div className="flex items-center gap-2">
-          {user ? (
+          <Link
+            href={panelHref}
+            prefetch={false}
+            className="px-4 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+          >
+            Panele Giriş
+          </Link>
+
+          {user && (
             <>
               <span className="hidden md:inline text-sm text-gray-600">
                 {user.user_metadata?.full_name ?? user.email}
@@ -66,18 +79,11 @@ export default function Navbar() {
               <button
                 onClick={onLogout}
                 className="px-3 py-1 rounded border text-gray-700 hover:bg-gray-50"
+                title="Oturumu kapat"
               >
                 Çıkış
               </button>
             </>
-          ) : (
-            <Link
-              href="/login?next=/panel"
-              prefetch={false}
-              className="px-3 py-1 rounded border text-gray-700 hover:bg-gray-50"
-            >
-              Giriş
-            </Link>
           )}
         </div>
       </nav>
