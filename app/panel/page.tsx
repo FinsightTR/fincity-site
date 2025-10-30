@@ -7,8 +7,9 @@ import Link from 'next/link';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import type { User } from '@supabase/supabase-js';
 
+export const metadata = { title: 'Panel | Fincity' };
+
 export default function PanelPage() {
-  // Next 15 uyarısını önlemek için Suspense ile sarmalıyoruz
   return (
     <Suspense fallback={<div className="py-16 text-center">Yükleniyor…</div>}>
       <PanelInner />
@@ -34,7 +35,6 @@ function PanelInner() {
       if (!mounted) return;
 
       if (!data.user) {
-        // Oturum yoksa login'e next=/panel ile gönder
         router.replace('/login?next=/panel');
         return;
       }
@@ -43,7 +43,6 @@ function PanelInner() {
       setLoading(false);
     })();
 
-    // Auth değişirse server cookie’leriyle senkron kalalım
     const { data: sub } = supabase.auth.onAuthStateChange(async () => {
       await router.refresh();
     });
@@ -54,9 +53,7 @@ function PanelInner() {
     };
   }, [supabase, router]);
 
-  if (loading) {
-    return <div className="py-16 text-center">Yükleniyor…</div>;
-  }
+  if (loading) return <div className="py-16 text-center">Yükleniyor…</div>;
 
   const fullName =
     (user?.user_metadata as any)?.full_name ||
