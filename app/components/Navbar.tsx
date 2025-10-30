@@ -16,15 +16,8 @@ export default function Navbar() {
 
   useEffect(() => {
     let mounted = true;
-
-    supabase.auth.getUser().then(({ data }) => {
-      if (mounted) setUser(data.user ?? null);
-    });
-
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
-      setUser(s?.user ?? null);
-    });
-
+    supabase.auth.getUser().then(({ data }) => mounted && setUser(data.user ?? null));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
     return () => {
       mounted = false;
       sub.subscription.unsubscribe();
@@ -32,10 +25,9 @@ export default function Navbar() {
   }, [supabase]);
 
   const onLogout = async () => {
+    // Oturumu kapat ve anasayfaya TAM SAYFA yönlendir (panelin client yönlendirmesini by-pass)
     await supabase.auth.signOut();
-    // güvenli çıkış → anasayfa
-    router.replace('/');
-    router.refresh();
+    window.location.assign('/'); // <-- kritik değişiklik
   };
 
   const navLink = (href: string, label: string) => {
@@ -57,7 +49,7 @@ export default function Navbar() {
           Fincity
         </Link>
 
-        {/* Orta: Menü (Panel menü öğesi yok) */}
+        {/* Orta: Menü */}
         <div className="flex items-center gap-1">
           {navLink('/about', 'Hakkımızda')}
           {navLink('/services', 'Hizmetlerimiz')}
@@ -65,9 +57,7 @@ export default function Navbar() {
           {navLink('/contact', 'İletişim')}
         </div>
 
-        {/* Sağ taraf: 
-           - Oturum yoksa: Panele Giriş ( /login?next=/panel )
-           - Oturum varsa: Kullanıcı adı + Güvenli Çıkış */}
+        {/* Sağ: Oturum durumuna göre */}
         <div className="flex items-center gap-2">
           {!user ? (
             <Link
