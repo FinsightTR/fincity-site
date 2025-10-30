@@ -1,92 +1,90 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState, useMemo } from "react";
-import { getSupabaseBrowser } from "@/lib/supabaseBrowser";
-import type { User } from "@supabase/supabase-js";
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import type { User } from '@supabase/supabase-js';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const supabase = useMemo(() => createClientComponentClient(), []);
+
   const [user, setUser] = useState<User | null>(null);
-  const [loaded, setLoaded] = useState(false);
-
-  const onAbout = pathname.startsWith("/about");
-  const onServices = pathname === "/services" || pathname.startsWith("/services/");
-  const onContact = pathname.startsWith("/contact");
-  const onDashboard = pathname.startsWith("/dashboard");
-
-  const base = "hover:text-gray-900 transition-colors";
-  const active = "font-semibold text-gray-900";
-  const inactive = "text-gray-600";
 
   useEffect(() => {
-    const sb = getSupabaseBrowser();
-    sb.auth.getUser().then(({ data }) => {
-      setUser(data.user ?? null);
-      setLoaded(true);
+    let mounted = true;
+    supabase.auth.getUser().then(({ data }) => {
+      if (mounted) setUser(data.user ?? null);
     });
-    const { data: sub } = sb.auth.onAuthStateChange((_evt, session) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
-    return () => sub.subscription.unsubscribe();
-  }, []);
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
+    };
+  }, [supabase]);
 
-  // Kullanıcı adı: full_name > name > display_name > e-posta prefix
-  const fullName = useMemo(() => {
-    const m = user?.user_metadata as any;
+  const onLogout = async () => {
+    await supabase.auth.signOut();
+    router.replace('/login?next=/panel');
+  };
+
+  const navLink = (href: string, label: string) => {
+    const active =
+      pathname === href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600';
     return (
-      m?.full_name ||
-      m?.name ||
-      m?.display_name ||
-      (user?.email ? user.email.split("@")[0] : "")
+      <Link href={href} prefetch={false} className={`px-3 py-1 ${active}`}>
+        {label}
+      </Link>
     );
-  }, [user]);
-
-  const handleLogout = async () => {
-    const sb = getSupabaseBrowser();
-    await sb.auth.signOut();
-    window.location.href = "/login";
   };
 
   return (
-    <header className="border-b bg-white sticky top-0 z-50">
-      <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="font-semibold text-lg text-gray-900 hover:text-gray-700">
+    <header className="w-full border-b bg-white">
+      <nav className="mx-auto max-w-6xl flex items-center justify-between px-4 py-3">
+        {/* Sol: Logo */}
+        <Link href="/" prefetch={false} className="text-xl font-semibold">
           Fincity
         </Link>
 
-        <nav className="flex items-center gap-6 text-sm font-medium">
-          <Link href="/about" className={`${base} ${onAbout ? active : inactive}`}>Hakkımızda</Link>
-          <Link href="/services" className={`${base} ${onServices ? active : inactive}`}>Hizmetlerimiz</Link>
-          <Link href="/#news" className={`${base} ${pathname === "/#news" ? active : inactive}`}>Gündem</Link>
-          <Link href="/contact" className={`${onContact ? active : inactive} ${base}`}>İletişim</Link>
+        {/* Orta: Menü */}
+        <div className="flex items-center gap-1">
+          {navLink('/hakkimizda', 'Hakkımızda')}
+          {navLink('/services/dijital', 'Hizmetlerimiz')}
+          {navLink('/gundem', 'Gündem')}
+          {navLink('/iletisim', 'İletişim')}
+          {/* Panel: daima /panel */}
+          {navLink('/panel', 'Panel')}
+        </div>
 
-          {!loaded ? (
-            <span className="text-gray-400">...</span>
-          ) : !user ? (
-            <Link href="/login" className="px-3 py-1.5 rounded bg-gray-900 text-white hover:bg-gray-800 transition">
-              Giriş
-            </Link>
-          ) : (
+        {/* Sağ: Auth */}
+        <div className="flex items-center gap-2">
+          {user ? (
             <>
-              {/* <span className="text-gray-700 hidden sm:inline">
-  Hoş geldin{fullName ? `, ${fullName}` : ""}!
-</span> */}
-
-
-              {!onDashboard && (
-                <Link href="/dashboard" className="px-3 py-1.5 rounded bg-blue-600 text-white hover:bg-blue-700 transition">
-                  Panel
-                </Link>
-              )}
-              <button onClick={handleLogout} className="px-3 py-1.5 rounded border text-gray-700 hover:bg-gray-100">
+              <span className="hidden md:inline text-sm text-gray-600">
+                {user.user_metadata?.full_name ?? user.email}
+              </span>
+              <button
+                onClick={onLogout}
+                className="px-3 py-1 rounded border text-gray-700 hover:bg-gray-50"
+              >
                 Çıkış
               </button>
             </>
+          ) : (
+            <Link
+              href="/login?next=/panel"
+              prefetch={false}
+              className="px-3 py-1 rounded border text-gray-700 hover:bg-gray-50"
+            >
+              Giriş
+            </Link>
           )}
-        </nav>
-      </div>
+        </div>
+      </nav>
     </header>
   );
 }
