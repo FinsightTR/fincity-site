@@ -89,14 +89,16 @@ function PanelInner() {
           <p className="text-gray-600">Finsight ERP modülleri yakında burada.</p>
         </Link>
 
-        {/* Mükellef Uygulaması */}
-        <Link
-          href="/mukellef"
-          className="border rounded-2xl p-6 shadow-sm hover:shadow-md transition bg-white"
+        {/* Mükellef Uygulaması → yeni sekmede fincity.com.tr */}
+        <a
+          href="https://www.fincity.com.tr/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border rounded-2xl p-6 shadow-sm hover:shadow-md transition bg-white block"
         >
           <h3 className="text-xl font-semibold mb-2">💼 Mükellef Uygulaması</h3>
-          <p className="text-gray-600">Bağlantılar yakında eklenecek.</p>
-        </Link>
+          <p className="text-gray-600">fincity.com.tr üzerinde aç.</p>
+        </a>
       </div>
     </main>
   );
