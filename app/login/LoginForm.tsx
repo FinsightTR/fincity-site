@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import type { User } from "@supabase/supabase-js";
@@ -8,6 +8,7 @@ import type { User } from "@supabase/supabase-js";
 export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const supabase = useMemo(() => createClientComponentClient(), []);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,47 +17,48 @@ export default function LoginForm() {
   const [user, setUser] = useState<User | null>(null);
 
   const rawNext = searchParams?.get("next") || "";
-  const nextPath = rawNext.startsWith("/") ? rawNext : "/dashboard";
+  const nextPath = rawNext.startsWith("/") ? rawNext : "/panel"; // ✅ varsayılan panel
 
+  // Oturum zaten varsa login'de bekletme
   useEffect(() => {
-    const sb = createClientComponentClient();
-    sb.auth.getUser().then(({ data }) => setUser(data.user ?? null));
-    const { data: sub } = sb.auth.onAuthStateChange((_e, session) =>
-      setUser(session?.user ?? null)
+    (async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) router.replace(nextPath);
+    })();
+  }, [supabase, router, nextPath]);
+
+  // Hoş geldin satırı için
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data.user ?? null));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) =>
+      setUser(s?.user ?? null)
     );
     return () => sub.subscription.unsubscribe();
-  }, []);
+  }, [supabase]);
 
-  const fullName = useMemo(() => {
-    const m = (user?.user_metadata ?? {}) as Record<string, any>;
-    return (
-      m.full_name ||
-      m.name ||
-      m.display_name ||
-      (user?.email ? user.email.split("@")[0] : "")
-    );
-  }, [user]);
+  const fullName =
+    (user?.user_metadata as any)?.full_name ||
+    (user?.email ? user.email.split("@")[0] : "");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErr(null);
-
     if (!email || !password) {
       setErr("Lütfen e-posta ve şifrenizi girin.");
       return;
     }
-
     setLoading(true);
     try {
-      const sb = createClientComponentClient();
-      const { error } = await sb.auth.signInWithPassword({ email, password });
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
         let msg = error.message;
         if (/invalid login credentials/i.test(msg)) msg = "E-posta veya şifre hatalı.";
         setErr(msg);
         return;
       }
-      router.push(nextPath);
+      await supabase.auth.getSession(); // token hazır
+      router.refresh();
+      router.replace(nextPath); // ✅ panel'e
     } catch {
       setErr("Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.");
     } finally {
@@ -66,25 +68,12 @@ export default function LoginForm() {
 
   return (
     <div className="min-h-[70vh] flex items-center justify-center bg-gray-50">
-      <form
-        onSubmit={onSubmit}
-        className="bg-white p-8 rounded-2xl shadow w-full max-w-sm space-y-4"
-        noValidate
-      >
-        {/* 👇 Hoş geldin başlığı (Fincity Giriş ile aynı stil, ünlemsiz) */}
-        {user && (
-          <p className="text-2xl font-bold text-center">
-            Hoş geldin, {fullName}
-          </p>
-        )}
-
+      <form onSubmit={onSubmit} className="bg-white p-8 rounded-2xl shadow w-full max-w-sm space-y-4" noValidate>
+        {user && <p className="text-2xl font-bold text-center">Hoş geldin, {fullName}</p>}
         <h1 className="text-2xl font-bold text-center">Fincity Giriş</h1>
 
         {err && (
-          <p
-            role="alert"
-            className="text-sm text-red-700 bg-red-50 border border-red-200 rounded p-2"
-          >
+          <p role="alert" className="text-sm text-red-700 bg-red-50 border border-red-200 rounded p-2">
             {err}
           </p>
         )}
@@ -118,12 +107,7 @@ export default function LoginForm() {
           />
         </label>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 text-white rounded p-2 disabled:opacity-60"
-          aria-busy={loading}
-        >
+        <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white rounded p-2 disabled:opacity-60" aria-busy={loading}>
           {loading ? "Giriş yapılıyor..." : "Giriş Yap"}
         </button>
       </form>
