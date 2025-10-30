@@ -12,16 +12,22 @@ type Search = Record<string, string | string[]>;
 export default async function LoginPage({
   searchParams,
 }: {
-  // Next.js 15: searchParams artık Promise
   searchParams?: Promise<Search>;
 }) {
-  const cookieStore = await cookies();
+  // Next 15: cookies() async döner
+  const store = await cookies();
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
-      cookies: { get: (name: string) => cookieStore.get(name)?.value },
+      cookies: {
+        getAll() {
+          return store.getAll();
+        },
+        // SSR'da cookie yazmıyoruz (Next 15 uyumu)
+        setAll() {},
+      },
     }
   );
 
@@ -29,11 +35,16 @@ export default async function LoginPage({
     data: { session },
   } = await supabase.auth.getSession();
 
-  // Next paramını Promise içinden güvenli çek
   const sp = (await searchParams) ?? {};
   const rawNext = Array.isArray(sp.next) ? sp.next[0] : (sp.next as string | undefined);
-  const nextPath = rawNext && rawNext.startsWith("/") ? rawNext : "/dashboard";
 
+  // Güvenli next path: iç link ve "/" ile başlamalı
+  const nextPath =
+    rawNext && rawNext.startsWith("/") && !rawNext.startsWith("//")
+      ? rawNext
+      : "/panel";
+
+  // Oturum varsa formu göstermeden yönlendir
   if (session) redirect(nextPath);
 
   return <LoginForm />;

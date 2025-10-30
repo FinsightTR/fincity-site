@@ -28,18 +28,21 @@ function PanelInner() {
     let mounted = true;
 
     (async () => {
-      const { data } = await supabase.auth.getUser();
+      // ✅ getSession: oturum var/yok kesin kontrol (getUser yerine)
+      const { data } = await supabase.auth.getSession();
       if (!mounted) return;
 
-      if (!data.user) {
+      const session = data.session;
+      if (!session) {
         router.replace('/login?next=/panel');
         return;
       }
 
-      setUser(data.user);
+      setUser(session.user);
       setLoading(false);
     })();
 
+    // Oturum değiştiğinde sayfayı güncel tut
     const { data: sub } = supabase.auth.onAuthStateChange(async () => {
       await router.refresh();
     });
@@ -68,6 +71,7 @@ function PanelInner() {
       <h2 className="text-3xl font-bold mb-12">Uygulamalarımız</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full px-6">
+        {/* Fincity Web */}
         <Link
           href="/"
           className="border rounded-2xl p-6 shadow-sm hover:shadow-md transition bg-white"
@@ -76,6 +80,7 @@ function PanelInner() {
           <p className="text-gray-600">Fincity anasayfaya dön.</p>
         </Link>
 
+        {/* ERP Modülleri */}
         <Link
           href="/erp"
           className="border rounded-2xl p-6 shadow-sm hover:shadow-md transition bg-white"
@@ -84,6 +89,7 @@ function PanelInner() {
           <p className="text-gray-600">Finsight ERP modülleri yakında burada.</p>
         </Link>
 
+        {/* Mükellef Uygulaması */}
         <Link
           href="/mukellef"
           className="border rounded-2xl p-6 shadow-sm hover:shadow-md transition bg-white"
