@@ -16,10 +16,15 @@ export default function Navbar() {
 
   useEffect(() => {
     let mounted = true;
-    supabase.auth.getUser().then(({ data }) => mounted && setUser(data.user ?? null));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) =>
-      setUser(s?.user ?? null)
-    );
+
+    supabase.auth.getUser().then(({ data }) => {
+      if (mounted) setUser(data.user ?? null);
+    });
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
+      setUser(s?.user ?? null);
+    });
+
     return () => {
       mounted = false;
       sub.subscription.unsubscribe();
@@ -28,7 +33,9 @@ export default function Navbar() {
 
   const onLogout = async () => {
     await supabase.auth.signOut();
-    router.replace('/login?next=/panel');
+    // güvenli çıkış → anasayfa
+    router.replace('/');
+    router.refresh();
   };
 
   const navLink = (href: string, label: string) => {
@@ -42,9 +49,6 @@ export default function Navbar() {
     );
   };
 
-  // Tek CTA: kullanıcı varsa /panel, yoksa /login?next=/panel
-  const panelHref = user ? '/panel' : '/login?next=/panel';
-
   return (
     <header className="w-full border-b bg-white">
       <nav className="mx-auto max-w-6xl flex items-center justify-between px-4 py-3">
@@ -53,7 +57,7 @@ export default function Navbar() {
           Fincity
         </Link>
 
-        {/* Orta: Menü (Panel kaldırıldı) */}
+        {/* Orta: Menü (Panel menü öğesi yok) */}
         <div className="flex items-center gap-1">
           {navLink('/about', 'Hakkımızda')}
           {navLink('/services', 'Hizmetlerimiz')}
@@ -61,27 +65,29 @@ export default function Navbar() {
           {navLink('/contact', 'İletişim')}
         </div>
 
-        {/* Sağ: Tek buton + (varsa) çıkış */}
+        {/* Sağ taraf: 
+           - Oturum yoksa: Panele Giriş ( /login?next=/panel )
+           - Oturum varsa: Kullanıcı adı + Güvenli Çıkış */}
         <div className="flex items-center gap-2">
-          <Link
-            href={panelHref}
-            prefetch={false}
-            className="px-4 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
-          >
-            Panele Giriş
-          </Link>
-
-          {user && (
+          {!user ? (
+            <Link
+              href="/login?next=/panel"
+              prefetch={false}
+              className="px-4 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+            >
+              Panele Giriş
+            </Link>
+          ) : (
             <>
-              <span className="hidden md:inline text-sm text-gray-600">
-                {user.user_metadata?.full_name ?? user.email}
+              <span className="hidden md:inline text-sm text-gray-700">
+                {(user.user_metadata as any)?.full_name ?? user.email}
               </span>
               <button
                 onClick={onLogout}
                 className="px-3 py-1 rounded border text-gray-700 hover:bg-gray-50"
-                title="Oturumu kapat"
+                title="Güvenli Çıkış"
               >
-                Çıkış
+                Güvenli Çıkış
               </button>
             </>
           )}
