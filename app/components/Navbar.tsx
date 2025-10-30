@@ -15,16 +15,9 @@ export default function Navbar() {
 
   useEffect(() => {
     let mounted = true;
-    supabase.auth.getUser().then(({ data }) => {
-      if (mounted) setUser(data.user ?? null);
-    });
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-    return () => {
-      mounted = false;
-      sub.subscription.unsubscribe();
-    };
+    supabase.auth.getUser().then(({ data }) => mounted && setUser(data.user ?? null));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
+    return () => { mounted = false; sub.subscription.unsubscribe(); };
   }, [supabase]);
 
   const onLogout = async () => {
@@ -33,8 +26,9 @@ export default function Navbar() {
   };
 
   const navLink = (href: string, label: string) => {
-    const active =
-      pathname === href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600';
+    const active = pathname?.startsWith(href)
+      ? 'text-blue-600 font-semibold'
+      : 'text-gray-700 hover:text-blue-600';
     return (
       <Link href={href} prefetch={false} className={`px-3 py-1 ${active}`}>
         {label}
@@ -45,41 +39,28 @@ export default function Navbar() {
   return (
     <header className="w-full border-b bg-white">
       <nav className="mx-auto max-w-6xl flex items-center justify-between px-4 py-3">
-        {/* Sol: Logo */}
-        <Link href="/" prefetch={false} className="text-xl font-semibold">
-          Fincity
-        </Link>
+        <Link href="/" prefetch={false} className="text-xl font-semibold">Fincity</Link>
 
-        {/* Orta: Menü */}
         <div className="flex items-center gap-1">
-          {navLink('/hakkimizda', 'Hakkımızda')}
+          {navLink('/about', 'Hakkımızda')}
           {navLink('/services/dijital', 'Hizmetlerimiz')}
           {navLink('/gundem', 'Gündem')}
-          {navLink('/iletisim', 'İletişim')}
-          {/* Panel: daima /panel */}
+          {navLink('/contact', 'İletişim')}
           {navLink('/panel', 'Panel')}
         </div>
 
-        {/* Sağ: Auth */}
         <div className="flex items-center gap-2">
           {user ? (
             <>
               <span className="hidden md:inline text-sm text-gray-600">
                 {user.user_metadata?.full_name ?? user.email}
               </span>
-              <button
-                onClick={onLogout}
-                className="px-3 py-1 rounded border text-gray-700 hover:bg-gray-50"
-              >
+              <button onClick={onLogout} className="px-3 py-1 rounded border text-gray-700 hover:bg-gray-50">
                 Çıkış
               </button>
             </>
           ) : (
-            <Link
-              href="/login?next=/panel"
-              prefetch={false}
-              className="px-3 py-1 rounded border text-gray-700 hover:bg-gray-50"
-            >
+            <Link href="/login?next=/panel" prefetch={false} className="px-3 py-1 rounded border text-gray-700 hover:bg-gray-50">
               Giriş
             </Link>
           )}
