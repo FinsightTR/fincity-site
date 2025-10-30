@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 export const config = {
-  matcher: ["/login", "/dashboard/:path*", "/panel/:path*", "/erp/:path*", "/mukellef/:path*"],
+  // ⚠️ /panel ve /dashboard çıkarıldı. Sadece login, erp ve mukellef kontrol ediliyor.
+  matcher: ["/login", "/erp/:path*", "/mukellef/:path*"],
 };
 
 export async function middleware(req: NextRequest) {
@@ -15,23 +16,34 @@ export async function middleware(req: NextRequest) {
     {
       cookies: {
         getAll: () => req.cookies.getAll(),
-        setAll: (cookies) => cookies.forEach(({ name, value, options }) => res.cookies.set(name, value, options)),
+        setAll: (cookies) => {
+          for (const { name, value, options } of cookies) {
+            res.cookies.set(name, value, options);
+          }
+        },
       },
     }
   );
 
-  const { data: s } = await supabase.auth.getSession();
-  const session = s.session;
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   const path = req.nextUrl.pathname;
 
-  const needsLogin = ["/dashboard", "/panel", "/erp", "/mukellef"].some(p => path.startsWith(p));
-  if (needsLogin && !session) {
+  // ✅ Oturum varken /login'e gelirse doğrudan /panel'e gönder
+  if (path === "/login" && session) {
+    return NextResponse.redirect(new URL("/panel", req.url));
+  }
+
+  // ✅ /erp ve /mukellef: giriş ZORUNLU
+  if ((path.startsWith("/erp") || path.startsWith("/mukellef")) && !session) {
     const url = new URL("/login", req.url);
     url.searchParams.set("next", path + req.nextUrl.search);
     return NextResponse.redirect(url);
   }
 
-  // ---- ADMIN şartı: ERP + Mükellef ----
+  // ✅ /erp ve /mukellef: admin ZORUNLU
   if (session && (path.startsWith("/erp") || path.startsWith("/mukellef"))) {
     const { data: u } = await supabase.auth.getUser();
     const role = (u.user?.user_metadata?.role ?? "user") as "admin" | "manager" | "user";
@@ -40,11 +52,6 @@ export async function middleware(req: NextRequest) {
       back.searchParams.set("m", "unauthorized");
       return NextResponse.redirect(back);
     }
-  }
-
-  // Login'liyken /login'e gelirse panele at
-  if (path === "/login" && session) {
-    return NextResponse.redirect(new URL("/panel", req.url));
   }
 
   return res;
