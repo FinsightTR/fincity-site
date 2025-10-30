@@ -7,8 +7,6 @@ import Link from 'next/link';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import type { User } from '@supabase/supabase-js';
 
-export const metadata = { title: 'Panel | Fincity' };
-
 export default function PanelPage() {
   return (
     <Suspense fallback={<div className="py-16 text-center">Yükleniyor…</div>}>
@@ -24,7 +22,6 @@ function PanelInner() {
 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-
   const unauthorized = search.get('m') === 'unauthorized';
 
   useEffect(() => {
@@ -71,7 +68,6 @@ function PanelInner() {
       <h2 className="text-3xl font-bold mb-12">Uygulamalarımız</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full px-6">
-        {/* Fincity Web */}
         <Link
           href="/"
           className="border rounded-2xl p-6 shadow-sm hover:shadow-md transition bg-white"
@@ -80,7 +76,6 @@ function PanelInner() {
           <p className="text-gray-600">Fincity anasayfaya dön.</p>
         </Link>
 
-        {/* ERP Modülleri */}
         <Link
           href="/erp"
           className="border rounded-2xl p-6 shadow-sm hover:shadow-md transition bg-white"
@@ -89,7 +84,6 @@ function PanelInner() {
           <p className="text-gray-600">Finsight ERP modülleri yakında burada.</p>
         </Link>
 
-        {/* Mükellef Uygulaması */}
         <Link
           href="/mukellef"
           className="border rounded-2xl p-6 shadow-sm hover:shadow-md transition bg-white"
